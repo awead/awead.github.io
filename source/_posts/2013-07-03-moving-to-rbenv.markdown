@@ -36,12 +36,12 @@ Here's the basic gist of my setup:
 
 ### Development
 
-##### Requirements
+First, you'll need to make sure you have these installed:
 
-* Homebrew 
+* [Homebrew](http://mxcl.github.io/homebrew/) 
 * git
 
-On OSX, rbenv installation is a snap with homebrew.  Follow the instructions to install rbenv on Mac:
+On OSX, rbenv installation is a snap with Homebrew.  Follow the instructions to install rbenv on Mac:
 
 https://github.com/sstephenson/rbenv#homebrew-on-mac-os-x
 
