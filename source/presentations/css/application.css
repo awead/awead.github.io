@@ -1,0 +1,14 @@
+@import url(reveal.css);
+@import url(theme/sky.css);
+@import url(zenburn.css);
+.text-small li {
+  font-size: .75em;
+  line-height: 1em; }
+
+.reveal section img {
+  border-color: lightblue; }
+
+.fixed-top {
+  position: absolute;
+  top: -370px;
+  left: 250px; }

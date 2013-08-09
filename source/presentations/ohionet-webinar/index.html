@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>One of the Many Heads of Hydra--at the Rock and Roll Hall of Fame</title>
+
+		<meta name="description" content="Webinar on Hydra sponsored by OhioNET">
+		<meta name="author" content="Adam Wead">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/application.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+
+				<section>
+					<h2>One of the Many Heads of Hydra</h2>
+					<h3>at the Rock and Roll Hall of Fame</h3>
+					<h4>Adam Wead</h4>
+					<h5>Systems and Digital Collections Librarian</h5>
+					<h4>Sponsored by</h4>
+					<h4><a href="http://www.ohionet.org/">OhioNET</a></h4>
+				</section>
+
+				<!-- introduction -->
+				<section>
+					<section>
+						<h2>Introduction</h2>
+						<img src="img/hello.png" />
+					</section>
+					<section>
+						<h2>Hydra webinar in three parts</h2>
+    				<ol>	
+    				  <li>Background: Hydra as a digital repository</li>
+    				  <li>Technical Matters: An overview of Hydra's technical components and what they're all about</li>
+    				  <li>Building a Hydra Head: Starting down the path to building your own head</li>
+    				</ol>
+    				<p>There will a question and answer period after each part to help break-up the format</p>
+					</section>
+					<section>
+		 				<h2>Hydra at the Rockhall</h2>
+		 				<h4>Hydra satisfies all our needs in ways that other repository solutions could not</h4>
+  					<ul>
+  						<li>2010: Began R+D for a "D.A.M."</li>
+  						<li>2011: went live with Hydra</li>
+  						<li>Only video at the moment:
+  						<li>1650+ videos of institutional content, incl. induction ceremonies and performance series</li>
+  						<li>175 TB of data: 95% uncompressed video files stored on LTO tape, and not hard disk</li>
+  						<li>PBCore metadata schema</li>
+  						<li>compressed H264 files for streaming</li>
+  						<li>records get exported to a discovery interface</li>
+  					</ul>
+  					<aside class="notes">
+  						Everyone's needs are different, so solutions vary.  What works for us may not work for you, but you have the option
+  						of sharing/borrowing from others. 
+						</aside>
+					</section>
+					<section>
+						<h2>Today's Takeaways</h2>
+						<h4>What digital repository solution is best for me?</h4>
+						<ul>
+              <li class="fragment">current trends in repository applications</li>
+							<li class="fragment">the <em>Hydra Philosophy</em></li>
+							<li class="fragment">elements of the Hydra <em>stack</em></li>
+							<li class="fragment">what I will need to develop and use Hydra</li>
+							<li class="fragment">how to get started with Hydra</li>
+						</ul>
+					</section>
+          <section>
+            <h2>Who am I talking to?</h2>
+            <ul>
+              <li class="fragment">librarians, archivists, information professionals</li>
+              <li class="fragment">you may not have technical skills</li>
+              <li class="fragment">you know someone who does</li>
+              <li class="fragment">you are a manger or supervisor</li>
+              <li class="fragment">you have some technical skills and are looking at where to start</li>
+            </ul>
+          </section>
+				</section>
+
+				<!-- part one -->
+				<section>
+					<h2>Part 1: Conceptual Background</h2>
+					<h4>The what's and who's of Hydra and repository applications in general</h4>
+					<aside class="notes">
+						I'll be talking about what Hydra is in the non-technical sense, who's currently using, what's it designed to
+						do and how that compares with other asset managers
+					</aside>
+				</section>
+
+				<section>
+					<h2>What is Hydra?</h2>
+  				<h3>Conceptual level</h3>
+          <ul>
+  				  <li>Community: software developers, end users, adopters and institutions</li>
+  				  <li>Collaboration: shared solutions, or "heads," supported by a common core</li>
+          </ul>
+  				<h3>Philosophy</h4>
+          <blockquote>One body, many heads</blockquote>
+  				<blockquote>If you want to go fast, go alone; if you want to go far, go together</blockquote>
+  				<aside class="notes">            
+  				 	Everyone is facing the same challenges with digital content.  Why not pool collective resources and build a solution
+  				  that can leverage the work of other institutions and individuals who are meeting these shared challenges.
+  				</aside>
+  			</section>
+
+  			<section>
+					<h2>Hydra Fundamental Assumption</h2>
+					<blockquote>No single institution can resource the development of a full range of solutions on its own</blockquote>
+				</section>
+
+        <section>
+          <section>
+            <h2>Who is Hydra?</h2>
+            <ul>
+              <li class="fragment">started in 2008 with Stanford, UVA, and U. of Hull</li>
+              <li class="fragment">now includes over 19 partner institutions</li>
+              <li class="fragment">many additional adopters</li>
+              <li class="fragment">governed by a steering group, with partners meeting quarterly</li>
+              <li class="fragment">membership is free</li>
+            </ul>
+          </section>
+          <section>
+        	  <h2>Current Hydra Partners</h2>
+            <div class="text-small">
+        	    <ul>
+                <li>Stanford University</li>
+                <li>DuraSpace</li>
+                <li>Northwestern University</li>
+                <li>Indiana University</li>
+                <li>The Royal Library of Denmark</li>
+                <li>Boston Public Library</li>
+                <li>Virginia Tech</li>
+                <li>University of Hull</li>
+                <li>MediaShelf</li>
+                <li>Columbia University</li>
+                <li>London School of Economics</li>
+                <li>Data Curation Experts</li>
+                <li>Duke University</li>
+                <li>University of Virginia</li>
+                <li>University of Notre Dame</li>
+                <li>Penn State University</li>
+                <li>Rock and Roll Hall of Fame</li>
+                <li>WGBH</li>
+                <li>Yale University</li>
+              </ul>
+            </div>
+          </section>
+          <section>
+            <h2>Hydra Adopters</h2>
+            <ul>
+              <li>Spoken Word Services (Glasgow Caledonian University)</li>
+              <li>University College Dublin</li>
+              <li>University of Illinois at Urbana-Champaign</li>
+              <li>The Digital Repository of Ireland</li>
+              <li>Museum of the Performing Arts (MAE) of the Theatre Institute of Barcelona</li>      
+              <li>Johns Hopkins University</li>
+              <li>Tufts University</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Scope of Current Solutions</h2>
+            <ul>
+              <li>image collections</li>
+              <li>media content</li>
+              <li>archival collection presentation</li>
+              <li>institutional repositories</li>
+              <li>electronic theses and dissertations</li>
+              <li>visit <a href="http://projecthydra.org/">http://projecthydra.org/</a>
+                <ul>
+                  <li>includes links to their Hydra-based websites</li>
+                  <li>screencasts</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+        </section>
+
+	      <section>
+	      	<h2>Digital Challenges</h2>
+        	<aside class="notes">
+            Shifting into survey of repo solutions
+        		Digital repositories need to manage your content and ensure it will be
+        		available in the coming years.
+        	</aside>
+        	<ul>
+            <li class="fragment">identifying content types: images, audio, text, pdf, video, etc.</li>
+            <li class="fragment">description, i.e. metadata</li>
+            <li class="fragment">storage and preservation</li>
+            <li class="fragment">lifecycle: identify things that need to be deleted, kept, or migrated to newer formats</li>
+            <li class="fragment">format conversions, such as creating derivative files</li>
+            <li class="fragment">workflows for ingesting new content correctly, i.e. required information, supported formats</li>
+            <li class="fragment">searching, updating, viewing your content</li>
+            <li class="fragment">controlling access</li>
+ 	      	</ul>
+	      </section>
+
+        <section>
+          <section>
+        	  <h2>Archiving vs. Managing</h2>
+            <ul>
+              <li class="fragment">Libraries approach digital materials differently than other organizations</li>
+        		  <li class="fragment">Digital archiving implies another set of features in addition to basic digital asset management features</li>
+            </ul>
+          </section>
+        	<section>
+        		<h3>Archival Needs</h3>
+        		<ul>
+              <li>presentation of multiple items as a coherent unit, i.e. collections</li>
+              <li>hierarchical organization with varied levels of description</li>
+              <li>accessioning of content</li>
+              <li>top-down, collection-level driven</li>
+            </ul>
+          </section>
+          <section>
+          	<h3>Digital Repository</h3>
+         		<ul>
+         			<li>generally more item-level driven</li>
+            	<li>bottom-up</li>
+          		<li>collections or groups, but not in the archival sense</li>
+          	</ul>
+          </section>
+        </section>
+
+        <section>
+        	<section>
+        		<h2>Survey of Solutions</h2>
+        		<p>What's out there now to use as my digital repository or asset manager?</p>
+        	</section>
+        	<section>
+        	  <h3>Proprietary solutions</h3>
+            <ul>
+              <li class="fragment">
+                built around an existing library product:
+                <ul>
+                  <li class="fragment">ContentDM (OCLC)</li>
+                  <li class="fragment">ContentPro (Innovative)</li>
+                  <li class="fragment">Rosetta (ExLibris)</li>
+                </ul>
+              </li>
+              <li class="fragment">
+                focus on specific type of content or business sector
+                <ul>
+                  <li class="fragment">Canto (favors text documents for businesses)</li>
+                  <li class="fragment">Piction (favors images for business, gov. and museums)</li>
+                </ul>
+              </li>
+              <li class="fragment">and many, many more</li>
+            </ul>
+          </section>
+          <section>
+          	<h3>Open source solutions</h3>
+          	<ul>
+              <li>Built on a specific technological platform</li>
+              <li>often using Fedora</li>
+            	<li>DSpace</li>
+            	<li>Islandora</li>
+            	<li>RODA</li>
+            	<li>Omeka</li>
+            	<li>many others ...</li>
+           	</ul>
+          </section>
+        </section>
+				
+				<section>
+					<section>
+						<h2>Digital Pitfalls</h2>
+						<p>Looking for a repository solution? Watch out for ... </p>
+					</section>
+				
+					<section>
+						<h2>Assumptions</h2>
+						<ul>
+						  <li class="fragment">"turnkey" solutions aim for the common denominator</li>
+				      <li class="fragment">pre-fab modeling: organization of content, collections, rights management</li>
+				      <li class="fragment">media types: AV formats, file formats, data</li>
+				      <li class="fragment">metadata: Dublin Core, EAD, or MARC</li>
+				  	</ul>
+					</section>
+					<section>
+						<h2>Customizations</h2>
+						<ul>
+							<li class="fragment">your local implementation is limited to the constraints imposed by these assumptions</li>
+				  		<li class="fragment">you will need to customize to overcome any of these constraints</li>
+				  		<li class="fragment">you may need to customize just to get it to run "out of the box"</li>
+				  		<li class="fragment">you'll need to customize even if it does run "out of the box" and you accept its constraints</li>
+				  		<li class="fragment">did I mention you'll probably need to customize?</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Costs</h2>
+						<ul>
+							<li class="fragment">fiscal: $$$</li>
+				    	<li class="fragment">technological: servers, storage, equipment</li>
+				    	<li class="fragment">sociological: software developers, library technologists, users</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Bundles</h2>
+						<ul>
+              <li class="fragment">"stack" solutions</li>
+              <li class="fragment">combination of tools and procedures grouped into a collective product</li>
+							<li class="fragment">don't work well together</li>
+				  		<li class="fragment">aren't targeted towards libraries or archives</li>
+						</ul>
+					</section>
+				</section>
+				
+				<section>
+					<h2>Hydra Fundamental Assumption</h2>
+					<blockquote>No single system can provide the full range of repository-based solutions for a given institution's needs</blockquote>
+				</section>
+
+				<section>
+					<h2>What's good about Hydra</h2>
+				  <ul>
+				  	<li class="fragment">makes no assumptions* about your data
+				  	<li class="fragment">can model anything
+				  	<li class="fragment">using any metadata standard
+				  	<li class="fragment">using any content
+				  	<li class="fragment">stored anywhere
+				  	<li class="fragment">accessed by anyone or no one
+				  	<li class="fragment">presented as anything with HTML & Javascript
+				  	<li class="fragment">abstracts underlying technologies -- Fedora & Solr
+				  	<li class="fragment">free and open-source
+				  </ul>
+				</section>  
+
+
+        <section>
+        	<h2>What's not-so-good about Hydra</h2>
+        	<ul>
+          	<li class="fragment">technologically daunting</li>
+          	<li class="fragment">deep "stack" of technologies</li>
+          	<li class="fragment">tied to the Ruby-on-Rails framework</li>
+          	<li class="fragment">favors a Unix environment</li>
+          	<li class="fragment">requires in-house expertise/ability/willingness</li>
+          	<li class="fragment">not a turnkey solution (yet...)</li>
+          	<li class="fragment">no hosted solutions (yet...)</li>
+          </ul>
+        </section>
+
+        <section>
+        	<section>
+        	<h2>Why should I use it?</h2>
+        	  <ul>
+            	<li class="fragment">decide for yourself</li>
+              <li class="fragment">I'm not here to sell it to you</li>
+            	<li class="fragment">everything has costs</li>
+            </ul>
+        	</section>
+        	<section>
+          	<h3>Any solution will require technical expertise and customization</h3>
+          	<ul>
+          		<li>getting the system running</li>
+          		<li>learning</li>
+          		<li>integrating with existing systems</li>
+          	</ul>
+          </section>
+          <section>
+          	<h3>Why not?</h3>
+          	<ul>
+          	  <li class="fragment">no "magic bullet" proprietary solution</li>
+          	  <li class="fragment">vendor may limit options</li>
+          	  <li class="fragment">no "magic bullet" open source solution</li>
+          	  <li class="fragment">avoiding reinventing the wheel</li>
+          	  <li class="fragment">get started quickly with a rich set of features</li>
+          	  <li class="fragment">draw on a shared community <strong>and their technological resources</strong></li>
+          	</ul>
+          </section>
+        </section>
+
+        <section>
+        	<h1>end of Part 1</h1>
+        	<h3>Questions?</h3>
+        </section>
+
+        <!-- part two -->
+        <section>
+          <h2>Part 2: Technical Matters</h2>
+          <h4>An overview of Hydra's technical components and what they're all about</h4>
+        </section>
+
+        <section>
+        <h2>What is Hydra, technically?</h2>
+          <ul>
+            <li class="fragment">it's a web application</li>
+            <li class="fragment">specifically, it's a <em>Ruby on Rails</em> web application</li>
+            <li class="fragment">uses the Blacklight and Hydra gems</li>
+            <li class="fragment">Fedora repository for storing and describing content</li>
+            <li class="fragment">Solr for search and discovery</li>
+            <li class="fragment">
+              various other "Rails-isms" for additional features
+              <ul>
+                <li>user accounts</li>
+                <li>authentication and authorization</li>
+                <li>MySQL database or other RDMS</li>
+                <li>JQuery javascript library for building an interface</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <h2>What is Ruby on Rails?</h2>
+            <ul>
+              <li class="fragment">computer language (Ruby)</li>
+              <li class="fragment">framework for web applications (Rails)</li>
+              <li class="fragment">geared towards rapid development</li>
+              <li class="fragment">modularized features with <em>gems</em></li>
+            </ul>
+          </section>
+          <section>
+            <h2>Without Rails...</h2>
+            <img src="img/webapp-1.png" />
+          </section>
+          <section>
+            <h2>With Rails...</h2>
+            <img src="img/webapp-2.png" />
+          </section>
+          <section>
+            <h2>How to Use Rails</h2>
+            <blockquote>I really don't care about all the details</blockquote>
+            <ul>
+              <li class="fragment">convention over configuration</li>
+              <li class="fragment">auto-generate as much as possible:
+                <ul>
+                  <li>database table names</li>
+                  <li>field names</li>
+                  <li>relationships between tables</li>
+                  <li>most of the application code itself</li>
+                </ul>
+              </li>
+              <li class="fragment">rely on <em>gems</em> as much as possible</li>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Using a Database</h2>
+            <ul>
+              <li class="fragment">data is stored in tables</li>
+              <li class="fragment">some data is easier to model than others</li>
+              <li class="fragment">modeling library data is hard</li>
+            </ul>
+          </section>
+          <section>
+            <img class="diagram" src="img/data-model.jpg" />
+            <span>Source: <a href="http://www.dcm4che.org/confluence/download/attachments/496/pacstables_dcm4chee_216.jpg">DICOM Clinical Data Manager system</a></span>
+          </section>
+          <section>
+            <h2>Where it goes wrong</h2>
+            <ul>
+              <li>database tables get unwieldy when dealing with amorphous content</li>
+              <li>extending/changing/rearranging takes a lot of work</li>
+              <li>storing digital content in tables is problematic</li>
+              <li>data and metadata get separated</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <h2>We need ...</h2>
+            <ul>
+              <li class="fragment">something <strong>flexible</strong> and <strong>extensible</strong></li>
+              <li class="fragment">for <strong>digital objects</strong></li>
+              <li class="fragment">as a <strong>repository architecture</strong></li>
+            </ul>
+        </section>
+
+        <section>
+          <section>
+            <h2>F E D O R A</h2>
+            <ul>
+              <li>flexible</li>
+              <li>extensible</li>
+              <li>digital</li>
+              <li>object</li>
+              <li>repository</li>
+              <li>architecture</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Fedora Features</h2>
+            <ul>
+              <li class="fragment">models the content, not the data</li>
+              <li class="fragment">multiple means of description and arrangement</li>
+              <li class="fragment">stores metadata and content data together</li>
+              <li class="fragment">supports a wide variety of storage options</li>
+              <li class="fragment">uses RDF for relationships, XML for metadata</li>
+              <li class="fragment">
+                fundamental repository functions are built-in
+                <ul>
+                  <li class="fragment">versioning</li>
+                  <li class="fragment">fixity, i.e. checksums</li>
+                  <li class="fragment">unique identifiers</li>
+                </ul>
+              </li>
+              
+            </ul>
+          </section>
+          <section>
+            <h2>Example Digital Object</h2>
+            <img src="img/fedora-1.png" />
+          </section>
+          <section>
+            <h2>Object Relationships</h2>
+            <img src="img/fedora-2.png" />
+          </section>
+          <section>
+            <h2>Fedora Hangups</h2>
+            <ul>
+              <li class="fragment">slow</li>
+              <li class="fragment">it's just a backend</li>
+              <li class="fragment">can't search like a traditional database</li>
+              <li class="fragment">requires a RDMS for searching RDF relationships</li>
+              <li class="fragment">if only we could search Fedora like an SQL database...</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Solr</h2>
+            <h4>a search engine, all wrapped up and ready to go</h4>
+          </section>
+          <section>
+            <h2>About Solr</h2>
+            <ul>
+              <li class="fragment">originated as the Excite's search engine</li>
+              <li class="fragment">went open source, taken up by the Apache Foundation</li>
+              <li class="fragment">proprietary branch: Lucene</li>
+              <li class="fragment">open-source branch: Solr</li>
+            </ul>
+          </section>
+          <section>
+            <h2>What does Solr do, exactly?</h2>
+              <ul>
+              <li class="fragment">Indexes a sets of text documents</li>
+              <li class="fragment">
+                Provides many of the core-features of a modern-day information retrieval system:
+                <ul>
+                  <li class="fragment">boolean matching</li>
+                  <li class="fragment">vector space model matching</li>
+                  <li class="fragment">tunable relevance ranking</li>
+                  <li class="fragment">stop word removal</li>
+                  <li class="fragment">stemming</li>
+                  <li class="fragment">support for multiple languages</li>
+                  <li class="fragment">facet queries</li>
+                </ul>
+              </li>
+              <li class="fragment">very fast, easy to run</li>
+            </ul>
+          </section>
+          <section>
+            <h2>What's not to like?</h2>
+            <img src="img/solr-controls.jpg" />
+          </section>
+        </section>
+
+        <section>
+          <h2>Blacklight</h2>
+          <ul>
+            <li class="fragment">Rails gem for faceted search and discovery</li>
+            <li class="fragment">designed for library data</li>
+            <li class="fragment">provides a working interface to Solr</li>
+            <li class="fragment">
+              includes a basic web interface for:
+              <ul>
+                <li class="fragment">searching with queries and facets</li>
+                <li class="fragment">displaying lists of search results</li>
+                <li class="fragment">displaying individual item records</li>
+              </ul>
+            </li>
+            <li class="fragment">
+              additional functions:
+              <ul>
+                <li class="fragment">user accounts (using a Rails gem called Devise)</li>
+                <li class="fragment">bookmarking</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <h2>The Hydra Stack</h2>
+            <h4>putting it all together</h4>
+            <ul>
+              <li class="fragment">stores both content and metadata in Fedora</li>
+              <li class="fragment">manages the relationships between your objects</li>
+              <li class="fragment">indexes metadata into Solr for searching (so you don't have to mess with configuring solr)</li>
+              <li class="fragment">uses the Blacklight gem to provide the search and retrieval interface</li>
+            </ul>
+          </section>
+          <section>
+            <img src="img/hydra-head.png" />
+          </section>
+          <section>
+            <h2>What's left...</h2>
+            <ul>
+              <li class="fragment">you develop the interface to add/edit/delete content and link objects to one another</li>
+              <li class="fragment">build additional features and the user interface design</li>
+              <li class="fragment">accomplished mostly with gems</li>
+            </ul>
+          </section>
+          <section>
+            <h4>A hydra-head in action</h4>
+          </section>
+        </section>
+
+        <section>
+          <h1>end of Part 2</h1>
+          <h3>Questions?</h3>
+        </section>
+          
+        <section>
+          <h2>Part 3: Building a Hydra Head</h2>
+          <h4>Getting started with your own hydra-head</h4>
+        </section>
+
+        <section>
+          <h2>Requirements</h2>
+          <ul>
+            <li class="fragment">at least 1 developer/sys. admin/techie</li>
+            <li class="fragment">ideally 2 people, one for dev one for admin</li>
+            <li class="fragment">a server with enough storage and backup</li>
+            <li class="fragment">hosting options
+              <ul>
+                <li class="fragment">Amazon AWS</li>
+                <li class="fragment">cloud storage with Fedora</li>
+                <li class="fragment">hosted Rails applications</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Learning</h2>
+          <ul>
+            <li class="fragment">online resources</li>
+            <li class="fragment"><a href="http://www.codeschool.com/">Code School</a></li>
+            <li class="fragment"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
+            <li class="fragment"><a href="https://github.com/projecthydra/hydra-head/wiki/Dive-into-Hydra">Hydra Tutorial</a></li>
+            <li class="fragment">HydraCamp</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Starting from nothing?</h2>
+          <ul>
+            <li class="fragment">don't have a tech person?</li>
+            <li class="fragment">never wrote any computer code?</li>
+            <li class="fragment">give yourself a year</li>
+            <li class="fragment">experiment</li>
+            <li class="fragment">get some training</li>
+            <li class="fragment">talk to people</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Upcoming Developments</h2>
+          <ul>
+            <li class="fragment">gems, gems and more gems</li>
+            <li class="fragment"><a href="https://github.com/projecthydra/sufia">Sufia</a></li>
+            <li class="fragment">an institutional repository gem</li>
+            <li class="fragment">includes user interface, uploading, derivative creation</li>
+            <li class="fragment">still a bit green, but improving daily</li>
+            <li class="fragment">others: hydra-collections, hydra-derivatives</li>
+            <li class="fragment">available at <a href="https://github.com/projecthydra">https://github.com/projecthydra</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Get Involved</h2>
+          <ul>
+            <li class="fragment">irc chat room
+              <ul>
+                <li class="fragment">#projecthydra</li>
+                <li class="fragment">#blacklight</li>
+                <li class="fragment">#code4lib</li>
+                <li class="fragment">#libtechwomen</li>
+              </ul>
+            </li>
+            <li class="fragment">hydra-tech email list</li>
+            <li class="fragment">committer's calls</li>
+ 
+          </ul>
+        </section>
+
+        <section>
+          <h2>Parting Thoughts</h2>
+          <ul>
+            <li class="fragment">we're all in this together</li>
+            <li class="fragment">Hydra is not the end-all be-all</li>
+            <li class="fragment">keep in touch!</li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Thanks!</h1>
+          <blockquote>Special thanks to OhioNET</blockquote>
+        </section>
+
+    	  <section>
+          <h2 class="fixed-top">References</h2>
+    	  	<section>
+            <h4>Part 1</h4>
+            <ul>
+              <li>Tom Cramer, "Introduction to Hydra" Sept. 25, 2012, DuraSpace Hot Topics Webinar Series</li>
+              <li>Project Hydra website: http://projecthydra.org/</li>
+              <li>ContentDM: <a href="http://www.contentdm.org/">http://www.contentdm.org/</a></li>
+              <li>ContentPro: <a href="http://www.iii.com/products/content_pro.shtml">http://www.iii.com/products/content_pro.shtml</a></li>
+              <li>Rosetta: <a href="http://www.exlibrisgroup.com/category/RosettaOverview">http://www.exlibrisgroup.com/category/RosettaOverview</a></li>
+              <li>Canto: <a href="http://www.canto.com/">http://www.canto.com/</a></li>
+              <li>Piction: <a href="http://www.piction.com/">http://www.piction.com/</a></li>
+              <li>DSpace: <a href="http://www.dspace.org/">http://www.dspace.org/</a></li>
+              <li>Islandora: <a href="http://islandora.ca/">http://islandora.ca/</a></li>
+              <li>Omeka: <a href="http://omeka.org/">http://omeka.org/</a></li>
+              <li>RODA: <a href="http://roda-community.org/">http://roda-community.org/</a></li>
+            </ul>
+          </section>
+    	    <section>
+            <h4>Part 2</h4>
+            <ul>
+              <li>Ruby on Rails: <a href="http://rubyonrails.org/">http://rubyonrails.org/</a></li>
+              <li><a href="http://www.dcm4che.org/confluence/display/ee2/Home">DICOM clinical data manger system</a></li>
+              <li>Fedora: <a href="http://www.fedora-commons.org/">http://www.fedora-commons.org/</a></li>
+              <li>Solr: <a href="http://lucene.apache.org/solr/">http://lucene.apache.org/solr/</a></li>
+              <li>Blacklight: <a href="http://projectblacklight.org/">http://projectblacklight.org/</a></li>
+              <li>Naomi Dushay, "The Hydra Framework as a Series of Diagrams," Stanford University Libraries, April 2012</li>
+            </ul>
+          </section>
+          <section>
+            <h4>Part 3</h4>
+            <ul>
+              <li>Amazon AWS: <a href="http://aws.amazon.com/">http://aws.amazon.com/</a></li>
+              <li>IRC: <a href="http://en.wikipedia.org/wiki/Internet_Relay_Chat">http://en.wikipedia.org/wiki/Internet_Relay_Chat</a>
+            </ul>
+          </section> 
+        </section>
+
+        <section>
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="http://workshops.railsbridge.org/">Rails Bridge</a></li>
+            <li><a href="http://www.codeschool.com/">Code School</a></li>
+            <li><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
+            <li>Hydra source code: <a href="https://github.com/projecthydra">https://github.com/projecthydra</a></li>
+            <li><a href="https://wiki.duraspace.org/display/hydra/The+Hydra+Project">Hydra Wiki</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Contact Me!</h2>
+          <ul>
+            <li>email: awead {at} rockhall dot org</li>
+            <li>twitter: @amsterdamos</li>
+            <li>irc: awead</li>
+            <li>github: <a href="https://github.com/awead">https://github.com/awead</a></li>
+          </ul>
+        </section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
