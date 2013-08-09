@@ -6,6 +6,5 @@ comments: true
 sharing: true
 footer: true
 ---
-# Presentations
 
 [Ohionet webinar](/presentations/ohionet-webinar) 
