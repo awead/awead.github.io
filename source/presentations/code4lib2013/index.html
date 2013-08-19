@@ -1,0 +1,337 @@
+<!doctype html>
+<!--
+  Hybrid Archival Collections Using Blacklight and Hydra
+  by Adam Wead
+  Presentation given at the Code4Lib Conference, Chicago, IL
+  February 12, 2013
+
+  Written using impress.js (https://github.com/bartaz/impress.js/)
+  Style and formatting borrowed heavilly from Bartek Szopka's demo presentation:
+    http://bartaz.github.com/impress.js
+  Released under the MIT and GPL Licenses.
+
+  All other content is my own and feely available under the Creative Commons License:
+    http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode  
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1024" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>Hybrid Archival Collections Using Blacklight and Hydra</title>
+  
+  <meta name="abstract" content="At the Library and Archives of the Rock and Roll Hall of Fame, we use available tools such as Archivists' Toolkit to create EAD finding aids of our collections. However, managing digital content created from these materials and the born-digital content that is also part of these collections represents a significant challenge. In my presentation, I will discuss how we solve the problem of our hybrid collections by using Hydra as a digital asset manager and Blacklight as a unified presentation and discovery interface for all our materials." />
+  <meta name="author" content="Adam Wead" />
+
+  <meta name="description" content="Presentation for the Code4Lib conference in Chicago, IL, February 12, 2013" />
+
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/hybrid.css" rel="stylesheet" />
+  
+  <link rel="shortcut icon" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+  <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+  <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="impress">
+
+  <div id="title" class="step slide" data-x="-3000" data-y="-1750">
+    <h1>Hybrid Archival Collections Using Blacklight and Hydra</h1>
+      <img class="logo" src="img/logo.png"/>
+      <h2>Adam Wead</h2>      
+      <p><a href="https://github.com/awead/presentations">https://github.com/awead/presentations</a></p> 
+  </div>
+
+
+  <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+  </div>
+
+  <!--
+  <div class="step" data-x="3000" data-y="-1000" data-scale="5">
+    Build a discovery interface that encompasses library (MARC) data, archival collections (EAD)
+    as well as digital content and its associcated metadata (PBCore xml)
+  </div>
+  -->
+
+  <div id="solr" class="step" data-x="3000" data-y="1500" data-scale="10">
+    Solr
+  </div>
+
+  <div id="blacklight" class="step" data-x="3000" data-y="-500" data-scale="8">
+    Blacklight
+  </div>
+
+  <div id="library" class="step" data-x="-500" data-y="-500" data-scale="5" data-rotate="-45">
+    <h1>Library materials</h1>
+  </div>
+
+  <div id="archives" class="step" data-x="7000" data-y="500" data-scale="5" data-rotate="45">
+    <h1>Archival collections</h1>
+  </div>
+
+  <div id="archives-ratio" class="step" data-x="7500" data-y="-100" data-scale="3" data-rotate="45">
+    <table>
+      <tr><td class="left">MARC</td><td class="center">&nbsp;=&nbsp;</td><td class="right">one&nbsp;item</td></tr>
+      <tr><td class="left">EAD</td><td class="center">&nbsp;=&nbsp;</td><td class="right">many&nbsp;items</td></tr>
+    </table>
+  </div>
+
+  <div class="step standard-html" data-x="5500" data-y="0" data-scale="1" data-rotate="45">
+    <h1>Extend Blacklight to search EAD</h1>
+    <ul>
+      <li>Index collections and single items from a collection</li>
+      <li>Search results yield:
+        <ul>
+          <li>bibligraphic items (marc records)</li>
+          <li>collections (single EAD)</li>
+          <li>items within collections (parts of EAD)</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div id="sample-collection" class="step standard-html" data-x="6500" data-y="1000" data-scale="1" data-rotate="45">
+    <img source="img/box.png"/><a id="ead-toggle">Guide to the Jeff Gold Collection</a>
+    <div id="ead" class="ead orig">
+      <ul class="folder">
+        <li>Series I: Artist Files 
+          <ul>
+            <li>Aerosmith</li>
+            <li>Dylan, Bob</li>
+          </ul>
+        </li>
+        <li>Series VII: Audiovisual Materials 
+          <ul class="folder">
+            <li>Subseries 1: Audio
+              <ul>
+                <li>Bowie, David</li>
+              </ul>
+            </li>
+            <li>Subseries 2: Video
+              <ul>
+                <li>Van Halen</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="sample-search" class="step" data-x="7500" data-y="2000" data-scale="1" data-rotate="45">
+    <div id="search-form">
+      <h1>Welcome! Search our catalog...</h1>
+      <form class="form-search">
+        <input type="text" class="input-medium search-query" value="Bob Dylan"/>
+        <button id="sample-search-button" type="submit" class="btn btn-primary">Search</button>
+      </form>
+    </div>
+    <div id="search-results" class="hidden">
+      Displaying items 1 - 4 of 547
+      <div><h3><img src="img/book.png"/> 1. Chronicles / Bob Dylan</h3></div>
+      <div><h3><img src="img/book.png"/> 2. Bob Dylan : forever young</h3></div>
+      <div><h3><img src="img/box.png"/> 3. Guide to the Jeff Gold Collection (ARC.0037)</h3></div>
+      <div><h3><img src="img/folder.png"/> 4. Series I: Artist Files >> Dylan, Bob </h3></div>
+    </div>
+  </div>
+
+  <div id="fa" class="step standard-html" data-x="8500" data-y="3000" data-scale="1" data-rotate="45">
+    <h1>Guide to the Jeff Gold Collection</h1>
+    <h2>Abstract</h2>
+    <p>Sample finding aid displayed with Blacklight
+    <h2>Collection Inventory</h2>
+    <div class="c01">
+      <h5>
+        <i id="show-ref1" class="icon-chevron-right"></i>
+        <i id="hide-ref1" class="icon-chevron-down hidden"></i>
+        Series I: Artist Files
+      <h5>
+      <div id="ref1" class="c02 hidden">
+        <h5>Aerosmith (Box: AF1, Folder: 1)</h5>
+        <h5>Dylan, Bob (Box: AF6, Folder: 25)</h5>
+      </div>
+    </div>
+    <div class="c01">
+      <h5>
+        <i id="show-ref2" class="icon-chevron-right"></i>
+        <i id="hide-ref2" class="icon-chevron-down hidden"></i>
+        Series VII: Audiovisual Materials 
+      </h5>
+      <div id="ref2" class="c02 hidden">
+        <h5>
+          <i id="show-ref3" class="icon-chevron-right"></i>
+          <i id="hide-ref3" class="icon-chevron-down hidden"></i>  
+          Subseries 1: Audio
+        </h5>
+        <div id="ref3" class="c03 hidden">
+          <h5>Bowie, David (Box: AV5, Reel: 1)</h5>
+        </div>
+        <h5>
+          <i id="show-ref4" class="icon-chevron-right"></i>
+          <i id="hide-ref4" class="icon-chevron-down hidden"></i>
+          Subseries 2: Video
+        </h5>
+        <div id="ref4" class="c03 hidden">
+          <h5>Van Halen (Box: AV4, Cassette: 5-13)</h5>
+        </div>
+        <h5 class="empty">
+          Subseries 3: Digital
+        </h5>
+      </div>
+    </div>
+  </div>
+
+  <div id="digital" class="step" data-x="3000" data-y="4400" data-scale="5">
+    <h1>Digital content</h1>
+  </div>
+
+  <div id="fedora" class="step" data-x="3000" data-y="3750" data-scale="4">
+    Fedora
+  </div>
+
+  <div id="hydra" class="step" data-x="3000" data-y="3000" data-scale="8">
+    Hydra
+  </div>
+
+  <div id="hydra-features" class="step standard-html" data-x="3000" data-y="3000" data-scale="2">
+    <ol>
+      <li>Defines Fedora objects using Ruby</li>
+      <li>Manages RDF relationships among them</li>
+      <li>Indexes metadata into Solr</li>
+    </ol>
+  </div>
+
+  <div id="model" class="step" data-x="3000" data-y="4250" data-scale="1">
+    <h1>Video Content in Fedora</h1>
+    <img src="img/video_model.png"/>
+  </div>
+
+  <div id="model-text-1" class="step standard-html" data-x="1750" data-y="4250" data-scale="1">
+    <h1>Relate Fedora content to its archival collection</h1>
+    <ul>
+      <li>Digitized content originates from sources in a collection</li>
+      <li>Born-digital content is part of a series in a collection</li>
+      <li>Collection metadtata already exists in Solr</li>
+    </ul>
+  </div>
+
+  <div id="model-text-2" class="step standard-html" data-x="250" data-y="4250" data-scale="1">
+    <h1>Create RDF representations of collections</h1>
+    <ul>
+      <li>Hydra <em>in reverse</em> -- query Solr for all collection metadata</li>
+      <li>Create objects for each collection, series and subseries</li>
+      <li>Tie everything together with RDF</li>
+      <li>Re-export to our Blacklight Solr index</li>
+    </ul>
+  </div>
+
+  <div id="full-model" class="step" data-x="250" data-y="5000" data-scale="1">
+    <img src="img/full_model.png"/>
+  </div>
+
+  <div id="fa-digital" class="step standard-html" data-x="-1500" data-y="5000" data-scale="1">
+    <h1>Guide to the Jeff Gold Collection</h1>
+    <h2>Abstract</h2>
+    <p>Sample finding aid displayed with Blacklight
+    <h2>Collection Inventory</h2>
+    <div class="c01">
+      <h5>
+        <i id="show-ref1" class="icon-chevron-right"></i>
+        <i id="hide-ref1" class="icon-chevron-down hidden"></i>
+        Series I: Artist Files
+      <h5>
+      <div id="ref1" class="c02 hidden">
+        <h5>Aerosmith (Box: AF1, Folder: 1)</h5>
+        <h5>Dylan, Bob (Box: AF6, Folder: 25)</h5>
+      </div>
+    </div>
+    <div class="c01">
+      <h5>
+        <i id="show-ref2" class="icon-chevron-right"></i>
+        <i id="hide-ref2" class="icon-chevron-down hidden"></i>
+        Series VII: Audiovisual Materials 
+      </h5>
+      <div id="ref2" class="c02 hidden">
+        <h5>
+          <i id="show-ref3" class="icon-chevron-right"></i>
+          <i id="hide-ref3" class="icon-chevron-down hidden"></i>  
+          Subseries 1: Audio
+        </h5>
+        <div id="ref3" class="c03 hidden">
+          <h5>Bowie, David (Box: AV5, Reel: 1)</h5>
+        </div>
+        <h5>
+          <i id="show-ref4" class="icon-chevron-right"></i>
+          <i id="hide-ref4" class="icon-chevron-down hidden"></i>
+          Subseries 2: Video
+        </h5>
+        <div id="ref4" class="c03 hidden">
+          <h5>Van Halen (Box: AV4, Cassette: 5-13)</h5>
+          <h5>Van Halen (Digital)</h5>
+        </div>
+        <h5>
+          <i id="show-ref5" class="icon-chevron-right"></i>
+          <i id="hide-ref5" class="icon-chevron-down hidden"></i>
+          Subseries 3: Digital
+        </h5>
+        <div id="ref5" class="c03 hidden">
+          <h5>[born-digital materials]</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="status" class="step standard-html" data-x="-2750" data-y="4000" data-scale="1">
+    <h1>Issues</h1>
+    <ul>
+      <li>Terrible solr performance for series with 500+ items</li>
+      <li>No EAD "round tripping"</li>
+      <li>Trying to aim for MPLP</li>
+      <li>Currently 60% complete</li>
+    </ul>
+  </div>
+
+  <div id="finish" class="step slide" data-x="-3000" data-y="0">
+    <h1>Thank you</h1>
+    <img class="logo" src="img/logo.png"/>
+    <h2>Adam Wead</h2>      
+    <p>awead@rockhall.org</p>
+    <p><img src="img/twitter.png" class="twit" />@amsterdamos</p>       
+  </div>
+
+  <div id="credits" class="step slide" data-x="-3000" data-y="-900">
+    <h1>Links</h1>
+    <ul>
+      <li><a href="http://catalog.rockhall.com">http://catalog.rockhall.com</a></li>
+      <li>http://github.com/awead/catalog</li>
+      <li>http://github.com/awead/Hydra-Rock</li>
+      <li>http://github.com/awead/solr_ead</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="hint">
+  <p>Use a spacebar or arrow keys to navigate</p>
+</div>
+<script>
+if ("ontouchstart" in document.documentElement) { 
+  document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+}
+</script>
+
+<script src="js/impress.js"></script>
+<script src="js/jquery-1.9.0.min.js"></script>
+<script src="js/hybrid.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>
