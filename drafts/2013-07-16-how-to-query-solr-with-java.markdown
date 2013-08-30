@@ -10,10 +10,10 @@ OK, this seems like an insipid title for a post, but this was way more complicat
 
 ### Background
 
-So, this week has been an adventure in java, courtesy of the [Wowza IDE](http://www.wowza.com/media-server/developers).  
+Last month was an adventure in Java, courtesy of the [Wowza IDE](http://www.wowza.com/media-server/developers).  
 Java is not my strong suit, but I recently had the need to leverage some of Wowza's module extensions to get some extra functionality with our streaming server.
 I have to hand it to the folks at Wowza.  They've done a really good job of providing a nice set of tools to get a would-be developer going writing their
-own module extensions.  Basically, they provide you with their own version of Eclipse, to which they've add all the extra bits necessary to build
+own module extensions.  Basically, they provide you with their own version of Eclipse, to which they've added all the extra bits necessary to build
 working code right away.  It's been almost 10 years since I did any real development in Eclipse, and I was happily surprised to see how fast I was 
 able to get back on the bandwagon.
 
