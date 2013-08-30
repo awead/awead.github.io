@@ -1,0 +1,104 @@
+---
+layout: post
+title: "chruby"
+date: 2013-08-30 12:46
+comments: true
+categories: 
+---
+
+This is the third, in a sort-of-three-part-series on Ruby managers.  In the first post, I discussed using rbenv in place of rvm which
+I had been using up until that point.  I found rbenv to be more lightweight than rvm, and it proved to be a better fit for my
+production environment.
+
+[Chruby](https://github.com/postmodern/chruby) is an even more slimmed-down version  of rbenv's essential features.  It
+simply changes your ruby to whichever version you need it to be.  That's it.  The improvement, in my mind, is due to the
+fact that it doesn't use shims or other shell acrobatics. This was causing me some grief when testing certain Rails-
+engine applications that would install and spin-up sample Rails applications in order to run all the tests.  The
+particular problem with this was that it required global gems and not gems that were confined to a  particular location
+or subfolder.  When doing this under rbenv, you needed to run rehash and using 
+[rbenv-rehash](https://github.com/ryansouza/rbenv-rehash) didn't seem to work either.
+
+### Rails Gotta Brand New bin/
+
+The other issue is that Rails 4 now keeps all of your application executables in the local bin/ directory.  This is a good thing, but
+since I was keeping bundler's gem executables in the same directory, it was a bit of a mess.  It didn't seem like a good idea to mix
+a gems executables in the same directory as the custom executables from your application.  The better solution was to go with
+a simpler bundler config for each directory:
+
+``` bash .bundle/config
+    ---
+    BUNDLE_DISABLE_SHARED_GEMS: '1'
+    BUNDLE_PATH: .bundle
+
+```
+
+and keep ~/.bundle/config empty.  This way, everything works in its default state everywhere, unless I've specified a
+particular configuration for a given project.  This is great if you want to have psudo-gemsets or groups of gems confined
+to a particular project while the rest of the system has whatever it needs.
+
+### Installing chruby
+
+Very, very easy.  I did it with Homebrew:
+
+    brew install chruby
+
+I had to remove rbenv first, which had also been installed with Homebrew:
+
+    brew uninstall rbenv
+    rm -Rf ~/.rbenv
+
+Installing new rubies is done with ruby-install, which rbenv also used, but here we use it in its original form:
+
+    brew install ruby-install
+    ruby-install ruby 1.9
+    ruby-install ruby 2.0
+
+Which will install two rubies, the latest stable 1.9 version and the latest 2.0 version.  Then if you want to switch, it's just
+a matter of:
+
+    chruby ruby-1.9.3-p286
+    chruby ruby-2.0.0-p195
+
+If you want a default ruby with each shell, say version 1.9, add these lines to your .bashrc, .bash_profile, or .profile:
+
+    source /usr/local/share/chruby/chruby.sh
+    chruby ruby-1.9.3-p286
+
+Similarly, you could add a new file to /etc/profiles.d under RedHat if you wanted all your users to get specific rubies upon login.
+
+### Project Rubies and Gems
+
+For projects that require specific versions of ruby, or anywhere else in your system where you want a certain version of ruby to
+run, simply put one of these in your directory with whatever ruby you wish:
+
+``` bash .ruby-version
+
+    1.9.3-p286
+
+```
+
+Project gems are done via bundler, using the config file I laid out at the beginning.  Then, when you run bundle install,
+the gems are placed under .bundler.  System-wide gems are installed with the gem command and placed in their default location under
+~/.gem/ruby with the directory name of the current version.
+
+### Caveats
+
+I did notice that when I switched from a global bundle config to a local per-directory config, the location of the gems moved from
+.bundle to .bundle/ruby/1.9.1 which was odd since I'm using ruby 1.9.3.  Re-arranging and re-configuring the .bundle directory
+did the the trick without having to install anything:
+
+    cd .bundler
+    rm config
+    mkdir -p ruby/1.9.1
+    cp * ruby/1.9.1/
+    cd ..
+    bundle config --local path .bundle
+    bundle config --local disable_shared_gems '1'
+
+Also, you should always use bundle exec within your projects to ensure you're getting the correct executable from your bundle.
+
+
+### Future Plans
+
+I'm still using rbenv in production.  I may switch over the chruby, but for now I'm very satisfied with rbenv and will continue to use
+it for my servers and use chruby for my local development work.
