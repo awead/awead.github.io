@@ -1,0 +1,89 @@
+---
+layout: post
+title: "Glob-ins"
+date: 2013-10-29 22:06
+comments: true
+categories: 
+---
+
+A couple of months ago, I spent a harrowing Friday afternoon deploying one of my Rails apps.  All the tests were
+passing on my laptop and on the development server.  However, once I got the same code on the production box,
+none of the spec tests were running.  Everything was failing with same error:
+
+    NameError:
+       undefined local variable or method `id' for main:Object
+
+Not a very helpful error.  So I did some initial digging around, but that didn't yield any explanations.
+What was even more exasperating was that the code and environment
+were exactly the same in both test and production.  I know because I spent a lot of time checking.
+
+I ended up really digging into the Rails source and tracked the problem down to a line in my rspec
+config:
+
+``` ruby spec_helper.rb
+    RSpec.configure do |config|
+      
+      [...]
+      
+      config.global_fixtures = :all
+
+      [...]
+
+    end
+```
+
+When specifying ActiveRecord fixtures, by default, rspec will look in spec/fixtures.  If you load all of them
+in the folder, as I had specified above, it does a 
+[glob on the directory](https://github.com/rails/rails/blob/master/activerecord/lib/active_record/fixtures.rb#L828) 
+to build the list of fixtures. 
+
+In most cases, this probably doesn't make a difference, but in my case it did because one fixture file had records
+that depended on the other.  I had two fixture files, one for the users table and another for activities.
+Activities needed to be loaded first, which was happening on my laptop and on my development system.  However, on my production server,
+the users fixture was loaded first instead.  This at least explained the error message: Rails was complaining that 
+it couldn't find the "id" method because the activities records hadn't been loaded yet.
+
+### The Goblin in the Glob
+
+This left me puzzling over why files would load in a different order on two identical systems.  It's true that file globing
+will have different results with 
+[different operating systems](http://rubyforge.org/tracker/index.php?func=detail&aid=12795&group_id=426&atid=1698), 
+but the development and production systems were both CentOS 6,
+both updated with the same patches, ruby versions, and gems.
+
+On the development system, I got:
+
+    irb(main):002:0> Dir["./*"]
+    => [./activities.yml", "./users.yml"]
+
+But production was:
+
+    irb(main):002:0> Dir["./*"]
+    => ["./users.yml", "./activities.yml"]
+
+I assumed that they would load alphabetically, but this was not the case.  Ideally, you would just call .sort on the results
+and Ruby would then sort them alphabetically, but I needed to instruct Rspec to load them in a specific order.  Fortunately,
+this was a one-line change:
+
+``` ruby spec_helper.rb
+    RSpec.configure do |config|
+      
+      [...]
+      
+      config.global_fixtures = :activities, :users
+
+      [...]
+
+    end
+```
+
+Another problem remained with cucumber, which also utilized the same fixtures and needed them specified in the same order.
+Again, another simple fix using ActiveRecord's new FixtureSet methods:
+
+
+    ActiveRecord::FixtureSet.create_fixtures(File.join(Rails.root, 'spec', 'fixtures'), [:activities, :users])
+
+### No Answer
+
+I still do not have an answer as to why the globing order would be different on the exact same operating system.  Perhaps that will be
+the topic of another post.
