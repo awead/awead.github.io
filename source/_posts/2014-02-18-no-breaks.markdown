@@ -1,0 +1,46 @@
+---
+layout: post
+title: "No Breaks"
+date: 2014-02-18 09:27
+comments: true
+categories: 
+---
+
+New year, yes I know, it's late.  I've been doing lots of front-end and web design work which I readily admit is not my strong
+suit.  However, I stick to using the Bootstrap framework and try to work within its defaults as much as possible.  I find
+this helps force me to be consistent and maintain control over layout.
+
+Recently I had a sort-of mini realization that the break tag isn't really that good to use. First of all, it has that
+weird "no closing tag so we tack one on at the end" thing, which just bothers me. There may be instances when you have to use
+a break tag or when it makes the most sense, but what I've been doing lately is asking myself, why
+am I using it in the first place?
+
+Let's say you have some plain text that you need to break up into sections:
+
+    Lorem ipsum dolor sit amet, <br/>
+    consectetur adipisicing elit, <br/>
+    sed do eiusmod tempor <br/>
+    incididunt ut labore <br/>
+    et dolore magna aliqua. <br/>
+
+Nothing wrong with that.  But, you might ask yourself what is it that's significant about these strings that merits
+their breakage?  Maybe these are lines of a poem, or some other structure.  So why not reflect that in the code:
+
+    <div id="first-stanza">
+      <span class="line">Lorem ipsum dolor sit amet,</span>
+      <span class="line">consectetur adipisicing elit,</span>
+      <span class="line">sed do eiusmod tempor</span>
+      <span class="line">incididunt ut labore</span>
+      <span class="line">et dolore magna aliqua.</span>
+    </div>
+
+Then we just add a little css to take care of the line breaks:
+
+    .line {
+      display: block;
+    }
+
+Of course, you could use paragraph tags here as well.  There are a multitude of options, but my point is that if you're
+reaching for that break tag a lot, chances are there's a more elegant solution that will better reflect the structure
+of your document.  That has broader implications when we think about how our pages get linked to other pages and how
+we want the web to make sense of them.  That's easier when we've created a clear structure to interpret.
