@@ -1,0 +1,31 @@
+.fixed-top {
+  position: absolute;
+  top: -270px;
+  left: 350px;
+}
+
+.text-inverted {
+  color: black;
+}
+
+div.chart {
+  background-color: white;
+  width: 500px;
+}
+    
+div.line {
+  display: inline-block;
+  width: 5px;
+  height: 75px;
+  margin-right: 2px;
+  background-color: teal;
+}
+
+svg.canvas {
+  height: 50px;
+  width: 600px;
+}
+
+    
+    
+
