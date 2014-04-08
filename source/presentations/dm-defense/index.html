@@ -15,7 +15,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/theme/blood.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -50,9 +50,12 @@
 			
 				<section>
 					<h3>Lute Tuning And Temperament In The Sixteenth And Seventeenth Centuries</h1>
-					<h4>Doctoral defense presented on Tuesday, April 8, 2014</h3>
-					<h6>Adam Wead</h6>
+					
+					<h4>Adam Wead</h4>
+					
+					<img src="images/iu.png" class="logo" />
 					<h6>Indiana University</h6>
+					<h6>April 8, 2014</h6>
 				</section>
 			
 				<section>
@@ -68,11 +71,11 @@
 				<section>
 					<h2>The Results</h2>
 					<ul>
-						<li class="fragment">Historical evidence will dictate temperament choice, but execution is completely individual</li>
-						<li class="fragment">No two player's path towards a temperament is the same</li>
-						<li class="fragment">Lutes can use a different temperament than the rest of the ensemble</li>
-						<li class="fragment">Historical temperaments that govern other instruments and ensembles do not apply to lutes</li>
-						<li class="fragment">It is not historically <em>wrong</em> to use equal temperament</li>
+						<li class="fragment">Lute, and all fretted-instrument temperament, is multifaceted, multivariate and completely individual</li>
+						<li class="fragment">Players will execute the same temperament in different ways</li>
+						<li class="fragment">Even in the same ensemble, a lute's temperament can be different than the other instruments</li>
+						<li class="fragment">Historical criteria for temperaments applies differently to lutes</li>
+						<li class="fragment">It is not historically <em>wrong</em> to use a quasi-equal temperament</li>
 					</ul>
 				</section>
 
@@ -81,7 +84,7 @@
 					<ol>
 						<li>A brief history of tuning and temperament</li>
 						<li>Surveying and measuring historical fretting sources</li>
-						<li>Fretting temperaments for solo and ensemble performance</li>
+						<li>Executing temperaments for solo and ensemble performance</li>
 						<li>Conclusions and questions</li>
 					</ol>
 				</section>
@@ -108,7 +111,7 @@
 								<li>Credited with developing the first tuning system</li>
 								<li>Relied on ratios of string lengths
 								<li>Used only unisons, octaves, fifths, and fourths</li>
-								<li>Created a diatonic comma and very wide thirds</li>
+								<li>Created a comma and very wide thirds</li>
 							</ul>
 						</div>
 					</section>
@@ -130,8 +133,8 @@
 					</section>
 
 					<section data-background="images/soa_aristotle.jpg" data-transition="fade">
-						<div class="col-lg-6 pull-right text-inverted">
-						  <h2>Aristoxenus</h2>
+						<div class="col-lg-8 pull-right text-inverted">
+						<h2 class="inverted">Aristoxenus</h2>
 						  <ul>
 						  	<li>Rejected the use of ratios</li>
 						  	<li>Divided strings into multiple small parts</li>
@@ -141,12 +144,17 @@
 					</section>
 
 					<section>
+						<h2>Circa 1480</h2>
+						<p>Pythagorean tuning is altered or <em>tempered</em> to avoid the problem of wide thirds</p>
+					</section>
+
+					<section>
 						<h2>Meantone Temperaments</h2>
 						<ul>
 							<li>Overcame limitation of wide thirds in Pythagorean tuning</li>
-							<li>Fifths are flattened by 1/4 of a syntonic comma to create pure thirds</li>
+							<li>Pietro Aron: Fifths are flattened by $ \frac {1}{4} $ of a syntonic comma to create pure thirds</li>
 							<li>Pure intervals were restricted to certain keys</li>
-							<li>Pietro Aron's system was inexact, relying on the ear</li>
+							<li>Aron's system was inexact, relying on the ear</li>
 						</ul>
 					</section>
 
@@ -167,19 +175,15 @@
 
 					<section>
 						<h2>Other Multipart Systems</h2>
-						<ul>
-							<li>Other systems exist with more than 31 parts</li>
-							<li>43, 55, 67, 79 ... </li>
-							<li>Each of these split the wholetone unequally by a difference of one part:
-								<ul>
-									<li>43: 7 parts, split 4+3, gives you 1/5 comma meantone</li>
-									<li>55: 9 parts, split 5+4, gives you 1/6 comma meantone</li>
-									<li>67: 11 parts, split 6+5, gives you 1/7 comma meantone</li>
-									<li>79: 13 parts, split 7+6, gives you 1/8 comma meantone</li>
-								</ul>
-							</li>
-							<li>We can now exactly calculate any semitone in a variety of meantone temperaments</li>
-						</ul>
+						<table class="table table-condensed">
+							<tr><th>Wholetone</th><th>Diatonic</th><th>Chromatic</th><th>Temperament</th></tr>
+							<tr><td>5</td><td>3</td><td>2</td><td>1/4 comma meantone</td></tr>
+							<tr><td>7</td><td>4</td><td>3</td><td>1/5 comma meantone</td></tr>
+							<tr><td>9</td><td>5</td><td>4</td><td>1/6 comma meantone</td></tr>
+							<tr><td>11</td><td>6</td><td>5</td><td>1/7 comma meantone</td></tr>
+							<tr><td>13</td><td>7</td><td>6</td><td>1/8 comma meantone</td></tr>
+						</table>
+						<p class="fragment">Allows us to calculate any semitone in any meantone temperament</p>
 					</section>
 
 				</section>
@@ -211,14 +215,14 @@
 
 					<section>
 						<h2>Reading Fretting Instructions</h2>
-						<blockquote>
-							&ldquo;Take a straight-edge that is thin or else a flat piece of wood like a ruler, and make it of such a
-							length that at the top it touches the piece of wood that the strings lie on and also touches the bridge
-							that the strings lie on, and when you have made the ruler so that it touches at both ends (don’t make it
-							too short; it must touch as I have said), mark the bottom part at the bridge with an a, and the top part
-							with a b, so that you will know which end belongs to the bridge. Then lay the ruler on a table, and take
-							a compass and find the middle of the ruler. Mark it with a point or little dot and put an m there.&rdquo;
-						</blockquote>
+						 <blockquote>
+						 	&ldquo;Take a straight-edge that is thin or else a flat piece of wood like a ruler, and make it of such a
+						 	length that at the top it touches the piece of wood that the strings lie on and also touches the bridge
+						 	that the strings lie on, and when you have made the ruler so that it touches at both ends (don’t make it
+						 	too short; it must touch as I have said), mark the bottom part at the bridge with an a, and the top part
+						 	with a b, so that you will know which end belongs to the bridge. Then lay the ruler on a table, and take
+						 	a compass and find the middle of the ruler. Mark it with a point or little dot and put an m there.&rdquo;
+						 </blockquote>
 						<p>from, Hans Gerle (1533)</p>
 					</section>
 
@@ -227,19 +231,20 @@
 						<ul>
 							<li>Perfect fifths and fourths</li>
 							<li>First fret has a ratio of 33:31</li>
-							<li>Mark Lindley, in <em>Lutes, viols, and temperaments</em>, identifies this as sixth-comma meantone</li>
-							<li>But, what <em>kind?</em></li>
+							<li>Mark Lindley, in <em>Lutes, viols, and temperaments</em>, identifies this as a diatonic semitone in sixth-comma meantone</li>
 						</ul>				
 					</section>
 					
 					<section>
 						<h2>Calculating Meantone Semitones</h2>
-						<p>An equal semitone within a 12-part octave: $ 2^\frac{1}{12} $</p>
-						<p>A diatonic semitone in 1/4 comma: $ 2^\frac{3}{31} $</p>
-						<p>A diatonic semitone in 1/6 comma: $ 2^\frac{5}{55} $</p>
-						<p>$ \frac{33}{31} = 1.065 $</p>
-						<p>$ 2^\frac{5}{55} = 1.065 $</p>
-						<p>Gerle was using a sixth-comma <em>diatonic</em> semitone</p>
+						<p class="fragment">Octaves move by powers of 2:  2, 4, 8, 16 or ... <span class="fragment">$ 2^1, 2^2, 2^3, 2^4, $</span></p>
+						<p class="fragment">An equal semitone within one octave: $ 2^\frac{1}{12} $</p>
+						<p class="fragment">A diatonic semitone in 1/4 comma: $ 2^\frac{3}{31} $</p>
+						<p class="fragment">A diatonic semitone in 1/6 comma: $ 2^\frac{5}{55} $</p>
+						<p class="fragment">Gerle/Dowland ratio $ \frac{33}{31} = 1.065 $</p>
+						<p class="fragment">$ 2^\frac{5}{55} = 1.065 $</p>
+						<p class="fragment">Gerle was using a sixth-comma <em>diatonic</em> semitone</p>
+						<p class="fragment">But what about the others?</p>
 					</section>
 
 					<section>
@@ -285,7 +290,7 @@
 					<section>
 						<h2>Unique Frets</h2>
 						<div class="col-lg-6 pull-left">
-							<p>Bermudo's Third Fred</p>
+							<p>Bermudo's Third Fret</p>
 							<image src="images/bermudo-3.png" />
 						</div>
 						<div class="col-lg-6 pull-right">
@@ -335,8 +340,7 @@
 				<section>
 						
 					<section>
-						<h2>How to Set Your Frets</h2>
-						<h4>for real this time</h4>
+						<h2>Executing Temperaments</h2>
 					</section>
 
 					<section>
@@ -358,9 +362,9 @@
  						<h2>Meantone Strategies</h2>
  						<ul>
  							<li class="fragment">slanted frets</li>
- 							<li class="fragment">tasitini</li>
+ 							<li class="fragment">tastini</li>
  							<li class="fragment">double frets</li>
- 							<li class="fragment">right-hand techniques</li>
+ 							<li class="fragment">left-hand techniques</li>
  							<li class="fragment">use another temperament</li>
  						</ul>
  					</section>
@@ -401,12 +405,55 @@
  						<h2>Theorbo Temperament Strategies (Continuo)</h2>
  						<ul>
  							<li>Re-entrant tuning</li>
- 							<li>Slanted frets</li>
+ 							<li>Slanted frets or tastini</li>
  							<li>Chord voicings</li>
  							<li>Omission of notes</li>
  						</ul>
  					</section>
 
+				</section>
+
+				<section>
+					
+					<section>
+						<h2>Conclusions</h2>
+					</section>
+
+					<section>
+						<h2>Practical</h2>
+						<ul>
+							<li class="fragment">Effective $ \frac{1}{4} $ comma is impossible without instrument modifications</li>
+							<li class="fragment">$ \frac{1}{6} $ comma is a nicer alternative</li>
+							<li class="fragment">Equal-ish temperaments are acceptable, though not ideal</li>
+							<li class="fragment">Mixed semitone sizes or customized temperaments</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Playing with Ensembles</h2>
+						<ul>
+							<li class="fragment">Playing in tune, versus using the same temperament</li>
+							<li class="fragment">It's the destination, not the journey</li>
+							<li class="fragment">Many solutions exist</li>
+						</ul>
+						
+					</section>
+
+					<section>
+						<h2>Philosophical</h2>
+						<ul>
+							<li class="fragment">Fretted instruments are different
+							<li class="fragment"><em>stable, but alterable</em> (Bottrigari)</li>
+							<li class="fragment">Uniformity is a modern idea</li>
+							<li class="fragment">We can be too precise</li>
+							<li class="fragment">Ears versus electronics</li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>Questions?</h2>
 				</section>
 
 			</div>
@@ -421,8 +468,8 @@
 			// Full list of configuration options available here:
 			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
-				controls: true,
-				progress: true,
+				controls: false,
+				progress: false,
 				history: true,
 				center: true,
 
