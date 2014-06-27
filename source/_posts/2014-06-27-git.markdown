@@ -1,0 +1,80 @@
+---
+layout: post
+title: "Git"
+date: 2014-06-27 08:26
+comments: true
+categories: 
+---
+
+This is my usual workflow when submitting patches, or even working on my own applications. There's been a lot of focus on
+Git branching models as of late.  [This](http://nvie.com/posts/a-successful-git-branching-model/) is a good one, for
+example. Mine isn't always that complicated, but no matter how many topic branches, my workflow is pretty much the same.
+
+Start with a topic branch, and make sure you're current:
+
+    git checkout master
+    git pull
+    git checkout -b fixing-a-bug
+
+Start working. Take a break... oh, it's the weekend?  Okay, I'll try again next week.  Make a few stabs at it over the weekend
+and finally get it fixed next week.  Now your git log probably looks like:
+
+    cdf5389ff978e4ba87150ca599fe6c4dcb6674b3 yay, done!
+    445cbfcf9ae8b18667474675213612c24a75190d ugh, no.
+    4e79c46f3e2410a09ddf609d442741e2cf1e8266 got it fixed!
+    f4f18f3117498f9e0735095fc7f44d63dc3557fe uh oh, this broke something
+    2a6ed6e963248a138996381f482ef500dea29bcf stashing changes
+    480ec8c17cb4ba535a97782167d73ba14528730e first stab
+
+If you're anything like me, some fixes are a journey and you sometimes end up going places you didn't intend. Your
+git log may reflect this.  Let's clean this up:
+
+    git rebase -i HEAD~6
+
+Now we can squash all those commits down to one, well-written and polished commit that makes it look like we
+knew exactly what we were doing all along. Of course, you don't have to, it's just easier. Sometimes I do
+squash to more than one commit if there are two different issues at hand and I want the
+comments in the commit log to reflect that; otherwise, it's just one big one.
+
+If we've been pushing up to Github along the way, we'll need to force update origin since our commits have now diverged:
+
+    git push origin +fixing-a-bug
+
+If you're the only person working on this repo, you're probably fine unless you're Tyler Durden.  Otherwise, check on any
+commits from origin or upstream if you're using a forked repo.  Then, get this into master and rebase against your
+topic branch:
+
+    git checkout master
+    git pull
+    git checkout fixing-a-bug
+    git rebase master
+
+Since you've squashed down to one commit, you only have to go through the rebase once, as opposed to multiple times for each
+commit.  Push any changes back up to Github and let Travis run the tests (if you're using continuous integration):
+
+    git push origin fixing-a-bug
+
+Once everything is green, merge your changes to master:
+
+    git checkout master
+    git merge fixing-a-bug
+
+Since you're merging one commit from the branch, this will be fast-forwarded, and the commit you've pulled in will appear with
+all the other commits in master as if there was never any branch.  For small projects, this is probably fine.
+Alternatively, you can leave your branch in Github and submit a pull request.  I've even done this on repos where I'm the only
+one working.  It feels odd submitting a PR to yourself, but it helps document the branch and merge process.
+
+If you want to preserve the branch/merge process and you don't want to submit PRs, when you merge into master:
+
+    git checkout master
+    git merge fixing-a-bug --no-ff
+
+The `--no-ff` is short for "no fast-forward".  This essentially preserves the merge as a separate commit in the log.  Yes,
+it makes the log a bit longer, but it's good for clarity because you'll see the history of the branch and merge process.
+
+Finally, clean up!
+
+    git push origin :fixing-a-bug
+    get remote prune origin
+
+This deletes the branch in Github and cleans up your local clone.
