@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Upgrading from Fedora 3 to 4</title>
+
+		<meta name="description" content="What I Know So Far About Upgrading from Fedora 3 to 4">
+		<meta name="author" content="Adam Wead">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/psu.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<header class="logo">
+				<img id="psu-shield" src="img/shield.png"/>
+			</header>
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-background="img/hydra.png" data-transition="fade">
+					<h2 class="fragment roll-in">What I Know So Far About</h2>
+					<h2>Upgrading from Fedora 3 to 4</h1>
+					<h3>Adam Wead</h3>
+					<h3>Penn State University</h3>
+					<p>
+						<small><a href="mailto:awead@psu.edu">awead@psu.edu</a> / <a href="http://twitter.com/amsterdamos">@amsterdamos</a></small>
+					</p>
+				</section>
+
+				<section data-background="img/hydra-bottom-right.png" data-transition="fade">
+					<h2><em>May the Fedora 4 be with you...</em></h2>
+					<ul>
+						<li>Currently in beta</li>
+					  <li>Final release expected by year-end</li>
+					  <li>Upgrade tools coming out with 4.1 release</li>
+					</ul>
+					<div class="fragment bubble bubble-right no-print">					
+			      <blockquote class="right-speech">
+        			<p>What, we can't updatd until 4.1?!?</p>
+      			</blockquote>
+          </div>
+				</section>
+
+				<section data-background="img/hydra-bottom-right.png" data-transition="fade">
+					<h2>Who's Doing It Now?</h2>
+					<ul>
+						<li>Fedora4 beta pilots
+							<ul>
+					      <li>Art Institute of Chicago</li>
+					      <li>Penn State University</li>
+					      <li>UC - San Diego</li>
+					    </ul>
+					  </li>
+						<li class="fragment">At present, only Penn State has existing Fedora3 repository</li>
+					</ul>
+				</section>
+
+				<section data-background="img/hydra-top-right.png" data-transition="fade">
+					<h2>Fedora at Penn State</h2>
+					<ul>
+						<li class="fragment">Repository storage for ScholarSphere and ArchiveSphere</li>
+						<li class="fragment">Both are Sufia-based</li>
+						<li class="fragment">4775 objects / 37GB data in ScholarSphere</li>
+						<li class="fragment">72262 objects / 186GB data in ArchiveSphere</li>
+						<li class="fragment">Looking to start migrating ScholarSphere at year-end</li>
+            <li class="fragment">ArchiveSphere to follow after that</li>
+					</ul>
+				</section>
+
+				<section data-background="img/hydra-top-right.png" data-transition="fade">
+					<h2>When I say <em>Migrate</em>...</h2>
+					<ul>
+						<li>Update Fedora to version 4, move data from a Sufia+Fedora3 repository to a Sufia+Fedora4 repository</li>
+				  	<li class="fragment">Some details are due to Sufia's design</li>
+				  	<li class="fragment">Most details will apply to any Fedora-based application</li>
+				  </ul>
+
+					<div class="blob-outer">					
+        		<span class="big-text">Sufia</span>
+        		<h5>&nbsp;</h5>
+					  <div class="blob-inner">					
+        	  	<span>ActiveFedora7 => ActiveFedora8</span>
+            </div>
+            <div class="blob-inner">
+        	  	<span>Fedora3 => Fedora4</span>
+            </div>
+            <div class="blob-inner">					
+        	  	<span>Solr 4.x</span>
+            </div>
+            <div class="blob-inner">					
+        	  	<span>Rails 4.x</span>
+            </div>
+          </div>
+				</section>
+
+				<section data-background="img/hydra-bottom-right.png" data-transition="fade">
+					<h2>Upgrade Overview</h2>
+					<ol>
+						<li class="fragment">Upgrade to latest hydra-head 7 with latest Fedora 3.x</li>
+						<li class="fragment">Make some decisions
+							<ul>
+								<li class="fragment">any RDF translations?</li>
+								<li class="fragment">version strategy?</li>
+								<li class="fragment">object relationships?</li>
+								<li class="fragment">intermediate nodes?</li>
+							</ul>
+						</li>
+						<li class="fragment">Iterate over your Fedora3 repository, ingesting objects and versions into Fedora4</li>
+						<li class="fragment">Verify</li>
+					<div class="fragment bubble bubble-right no-print">					
+			      <blockquote class="right-speech">
+        			<p>@noreply says you need to bang your head against it</p>
+      			</blockquote>
+          </div>						
+					</ol>
+				</section>
+
+				<section data-background="img/hydra-top-right.png" data-transition="fade">
+					<h2>Upgrading First</h2>
+					<ul>
+						<li class="fragment">Upgrading to latest Fedora (3.8?) helpful but not required</li>
+						<li class="fragment">Hydra updates are optional, but recommended</li>
+						<li class="fragment">If migrating from an older Hydra, be aware of changes to models and datastreams</li>
+						<li class="fragment">Example: ActiveFedora 7 now uses ActiveTriples for RDF datastreams</li>
+					</ul>
+				</section>
+
+				<section data-background="img/hydra-bottom-right.png" data-transition="fade">
+					<h2>Decisions, Decisions, Decisions</h2>
+				</section>		
+
+				<section data-background="img/hydra-bottom-right.png" data-transition="fade">
+					<h2>Decisions: Descriptive Metadata Changes</h2>
+					<p>Take advantage of native RDF in Fedora4</p>
+					<pre><code>
+class FedoraThreeModel < ActiveFedora::Base
+  has_metadata "descMetadata", MyDatastream
+  has_attributes :title, datastream: :descMetadata
+end
+    			</code></pre>
+    			<p>becomes</p>
+    			<pre><code>
+class FedoraFourModel < ActiveFedora::Base
+  property :title, predicate: RDF::DC.title do |index|
+    index.as :stored_searchable, :facetable
+  end
+end
+					</code></pre>
+					<p>
+						If MyDatastream is an ActiveFedora::NtriplesRDFDatastream under AF7, then easy, if not, you'll need to do some RDF translation.
+					</p>
+			    <div class="fragment bubble bubble-right no-print">					
+			      <blockquote class="right-speech">
+        			<p>Hey! What about terms with single values?</p>
+      			</blockquote>
+          </div>
+				</section>
+
+				<section data-background="img/hydra-bottom-right.png" data-transition="fade">
+					<h2>Decisions: Non-RDF Datastreams</h2>
+					<ul>
+						<li class="fragment">XML datastreams are still supported via OM</li>
+						<li class="fragment">No special treatment during migration</li>
+						<li class="fragment">Best for storing <em>generated</em> XML</li>
+						<li class="fragment">Only transfer versions unless absolutely necessary</li>
+					</ul>
+				</section>
+
+				<section data-background="img/hydra-bottom-left.png" data-transition="fade">
+					<h2>Decisions: Versions</h2>
+					<ul>
+						<li class="fragment">Versions have to be explicitly created during migration</li>
+						<li class="fragment">Original Fedora3-assigned dates have to be preserved elsewhere</li>
+						<li class="fragment">ActiveFedora tracks object and datastream versions separately</li>
+						<li class="fragment">No <em>object-level</em> versions in ActiveFedora at this time</li>
+					</ul>
+				</section>
+
+				<section data-background="img/hydra-top-right.png" data-transition="fade">
+					<h2>Decisions: Relationships</h2>
+					<ol>
+						<li class="fragment">Parent/child hierarchies of nodes
+					    <ul>
+					    	<li class="fragment">direct mapping of RELS-EXT in Fedora3</li>
+					    	<li class="fragment">fixed points in the hierarchy with attached properties</li>
+					    	<li class="fragment">currently supported in ActiveFedora 8</li>
+					    </ul>
+					  </li>
+					  <li class="fragment">Modeshape's weak references
+					    <ul>
+					    	<li class="fragment">allows you to make associations to nodes that don't exist</li>
+					    	<li class="fragment">solves a particular use case in Sufia (batch edits)</li>
+					    	<li class="fragment">currently not supported in ActiveFedora 8</li>
+					    </ul>
+					  </li>
+					 </ol>
+				</section>
+
+				<section data-background="img/hydra-top-right.png" data-transition="fade">
+					<h2>Decisions: Intermediate Nodes</h2>
+					<p>In Fedora4, every object must have a parent, even if you have a million objects and one parent</p>
+					<ul>
+						<li class="fragment">this causes performance issues due to Modeshape's behavior</li>
+						<li class="fragment">need to resize the hierarchy with additional levels of nodes</li>
+						<li class="fragment">we don't care about the these nodes</li>
+						<li class="fragment"><strong>Sufia's solution:</strong> create intermediate nodes based on the noid
+					    <ul>
+					    	<li class="fragment">an object with an id of <em>12ab34cd</em></li>
+					    	<li class="fragment">gets a hierarchy of nodes <em>/12/ab/34/cd/12ab34cd</em></li>
+					    	<li class="fragment">depends on how your objects are identified</li>
+					    	<li class="fragment">specific to Sufia and not in ActiveFedora</li>
+					    </ul>
+					  </li>
+					</ul>
+				</section>
+
+				<section data-background="img/hydra-bottom-right.png" data-transition="fade">
+					<h2>The Upgrade Process</h2>
+					<div class="fragment bubble bubble-right no-print">					
+			      <blockquote class="right-speech">
+        			<p>I thought he'd never get to this...</p>
+      			</blockquote>
+          </div>
+				</section>
+
+				<section data-background="img/hydra-bottom-right.png" data-transition="fade">
+					<h2>Getting from 3 to 4: Using Hydra</h2>
+					<ul>
+						<li class="fragment">there is no ActiveFedora that does Fedora3 <strong>and</strong> Fedora4</li>
+					  <li class="fragment">access Fedora3 using the rubydora gem</li>
+					  <li class="fragment">utilize Hydra, with ActiveFedora 8, to converting/ingest data into Fedora4</li>
+					</ul>
+					<div class="fragment bubble bubble-right no-print">					
+			      <blockquote class="right-speech">
+        			<p>Umm... have you actually tried this yet?</p>
+      			</blockquote>
+          </div>
+				</section>
+
+				<section data-background="img/hydra-bottom-right.png" data-transition="fade">
+					<h2>Getting from 3 to 4: Without Hydra</h2>
+					<ol>
+						<li class="fragment">Using a Fedora3 connector
+							<ul>
+								<li class="fragment">Fedora4 accesses the Fedora3 API (readonly)</li>
+								<li class="fragment">this <strong>might</strong> be the option provided in 4.1</li>
+							</ul>
+						</li>
+						<li class="fragment">Don't use Hydra? Use it anyway!
+							<ul>
+								<li class="fragment">you can still use rubydora</li>
+								<li class="fragment">express your models and datastreams using ActiveFedora</li>
+								<li class="fragment">use Hydra to migrate the data to Fedora4</li>
+								<li class="fragment"><strong>you don't have to keep using Hydra</strong></li>
+							</ul>
+						</li>
+					</ol>
+					<div class="fragment bubble bubble-right no-print">					
+			      <blockquote class="right-speech">
+        			<p>You have no idea what you're talking about, do you?</p>
+      			</blockquote>
+          </div>
+				</section>
+
+				<section data-background="img/hydra-bottom-right.png" data-transition="fade">
+					<h2>Plan of Attack</h2>
+					<ul>
+						<li class="fragment">Work with DCE to complete AF8/Fedora4/Sufia integration
+							<ul>
+								<li class="fragment">rightsMetadata RDF conversion</li>
+								<li class="fragment">model BatchEdit with weak references or (strong) references?</li>
+								<li class="fragment">reconfig audit process</li>
+							</ul>
+						</li>
+						<li class="fragment">Work with Duraspace on migration strategies and modeling decisions</li>
+						<li class="fragment">Communicate progress to and elicit feedback from the Hydra community at-large</li>
+						<li class="fragment">Circulate documentation and the tools that result from our work</li>
+						<li class="fragment">Be the first <em>guinea pig</em> to help pave the way for future migrations</li>
+					</ul>
+					<div class="fragment bubble bubble-right no-print">
+			      <blockquote class="right-speech">
+        			<p>Tastes like bacon, right?</p>
+      			</blockquote>
+          </div>	
+				</section>
+
+				<section data-background="img/hydra.png" data-transition="fade">
+					<h2>Thank You</h1>
+					<h3>Adam Wead</h3>
+					<h3>Penn State University</h3>
+					<p>
+						<small><a href="mailto:awead@psu.edu">awead@psu.edu</a> / <a href="http://twitter.com/amsterdamos">@amsterdamos</a></small>
+					</p>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,385 @@
+/**
+ * Penn State theme for reveal.js.
+ */
+@import url(https://fonts.googleapis.com/css?family=Montserrat:700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic);
+#psu-shield {
+  border: none;
+  width: 35%;
+  height: 35%; }
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 500; }
+
+.bubble-right {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  z-index: 500; }
+
+.blob-outer {
+  position: relative;
+  padding: 5px;
+  margin: 5px;
+  color: white;
+  background: #982f88;
+  /* default background for browsers without gradient support */
+  /* css3 */
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#982f88), to(#712365));
+  background: -moz-linear-gradient(#982f88, #712365);
+  background: -o-linear-gradient(#982f88, #712365);
+  background: linear-gradient(#982f88, #712365);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
+
+div.blob-outer {
+  padding: 50px; }
+
+.blob-inner {
+  position: relative;
+  padding: 5px;
+  margin: 5px;
+  color: white;
+  background: #2f983f;
+  /* default background for browsers without gradient support */
+  /* css3 */
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#2f983f), to(#23712f));
+  background: -moz-linear-gradient(#2f983f, #23712f);
+  background: -o-linear-gradient(#2f983f, #23712f);
+  background: linear-gradient(#2f983f, #23712f);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
+
+div.blob-inner {
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+span.big-text {
+  font-size: 2em; }
+
+@media print {
+  .no-print, .no-print * {
+    display: none !important; } }
+.bubble blockquote {
+  quotes: none; }
+
+.bubble blockquote {
+  display: block;
+  position: relative;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  font-style: italic;
+  background: none;
+  box-shadow: none; }
+
+.bubble p {
+  padding: 10px;
+  font-style: italic; }
+
+/* ============================================================================================================================
+== OVAL SPEECH BUBBLE (more CSS3)
+** ============================================================================================================================ */
+.bubble .oval-speech {
+  position: relative;
+  width: 270px;
+  padding: 50px 40px;
+  margin: 1em auto 50px;
+  text-align: center;
+  color: white;
+  background: #23712f;
+  /* css3 */
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#2f983f), to(#23712f));
+  background: -moz-linear-gradient(#2f983f, #23712f);
+  background: -o-linear-gradient(#2f983f, #23712f);
+  background: linear-gradient(#2f983f, #23712f);
+  /*
+  NOTES:
+  -webkit-border-radius:220px 120px; // produces oval in safari 4 and chrome 4
+  -webkit-border-radius:220px / 120px; // produces oval in chrome 4 (again!) but not supported in safari 4
+  Not correct application of the current spec, therefore, using longhand to avoid future problems with webkit corrects this
+  */
+  -webkit-border-top-left-radius: 220px 120px;
+  -webkit-border-top-right-radius: 220px 120px;
+  -webkit-border-bottom-right-radius: 220px 120px;
+  -webkit-border-bottom-left-radius: 220px 120px;
+  -moz-border-radius: 220px / 120px;
+  border-radius: 220px / 120px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
+
+.bubble .oval-speech p {
+  font-size: 1.25em; }
+
+/* creates part of the curve */
+.bubble .oval-speech:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: -30px;
+  left: 50%;
+  height: 30px;
+  border-left: 60px solid #23712f;
+  background: #23712f;
+  /* need this for webkit - bug in handling of border-radius */
+  /* css3 */
+  -webkit-border-bottom-left-radius: 80px 50px;
+  -moz-border-radius-bottomleft: 80px 50px;
+  border-bottom-left-radius: 80px 50px;
+  /* using translate to avoid undesired appearance in CSS2.1-capabable but CSS3-incapable browsers */
+  -webkit-transform: translate(0, -2px);
+  -moz-transform: translate(0, -2px);
+  -ms-transform: translate(0, -2px);
+  -o-transform: translate(0, -2px);
+  transform: translate(0, -2px); }
+
+/* creates part of the curved pointy bit */
+.bubble .oval-speech:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  bottom: -30px;
+  right: 50%;
+  width: 60px;
+  height: 30px;
+  background: white;
+  /* css3 */
+  -webkit-border-bottom-right-radius: 40px 50px;
+  -moz-border-radius-bottomright: 40px 50px;
+  border-bottom-right-radius: 40px 50px;
+  /* using translate to avoid undesired appearance in CSS2.1-capabable but CSS3-incapable browsers */
+  -webkit-transform: translate(-30px, -2px);
+  -moz-transform: translate(-30px, -2px);
+  -ms-transform: translate(-30px, -2px);
+  -o-transform: translate(-30px, -2px);
+  transform: translate(-30px, -2px); }
+
+/* ============================================================================================================================
+== BLOCKQUOTE WITH OBTUSE TRIANGLE
+** ============================================================================================================================ */
+.bubble .obtuse-speech {
+  position: relative;
+  padding: 15px 30px;
+  margin: 0;
+  color: white;
+  background: #23712f;
+  /* default background for browsers without gradient support */
+  /* css3 */
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#2f983f), to(#23712f));
+  background: -moz-linear-gradient(#2f983f, #23712f);
+  background: -o-linear-gradient(#2f983f, #23712f);
+  background: linear-gradient(#2f983f, #23712f);
+  /* Using longhand to avoid inconsistencies between Safari 4 and Chrome 4 */
+  -webkit-border-top-left-radius: 25px 50px;
+  -webkit-border-top-right-radius: 25px 50px;
+  -webkit-border-bottom-right-radius: 25px 50px;
+  -webkit-border-bottom-left-radius: 25px 50px;
+  -moz-border-radius: 25px / 50px;
+  border-radius: 25px / 50px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
+
+/* display of quote author (alternatively use a class on the element following the blockquote) */
+.bubble .obtuse-speech + p {
+  margin: 10px 150px 2em 0;
+  text-align: right;
+  font-style: italic; }
+
+/* creates the larger triangle */
+.bubble .obtuse-speech:before {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  right: 80px;
+  border-width: 0 0 30px 50px;
+  border-style: solid;
+  border-color: transparent #23712f;
+  /* reduce the damage in FF3.0 */
+  display: block;
+  width: 0; }
+
+/* creates the smaller triangle */
+.bubble .obtuse-speech:after {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  right: 110px;
+  border-width: 0 0 30px 20px;
+  border-style: solid;
+  border-color: transparent white;
+  /* reduce the damage in FF3.0 */
+  display: block;
+  width: 0; }
+
+/* ============================================================================================================================
+== BLOCKQUOTE WITH RIGHT-ANGLED TRIANGLE
+** ============================================================================================================================ */
+.bubble .right-speech {
+  position: relative;
+  padding: 15px 30px;
+  margin: 0;
+  color: white;
+  background: #23712f;
+  /* default background for browsers without gradient support */
+  /* css3 */
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#2f983f), to(#23712f));
+  background: -moz-linear-gradient(#2f983f, #23712f);
+  background: -o-linear-gradient(#2f983f, #23712f);
+  background: linear-gradient(#2f983f, #23712f);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
+
+/* display of quote author (alternatively use a class on the element following the blockquote) */
+.bubble .right-speech + p {
+  margin: 15px 0 2em 85px;
+  font-style: italic; }
+
+/* creates the triangle */
+.bubble .right-speech:after {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  right: 50px;
+  border-width: 0 20px 50px 0px;
+  border-style: solid;
+  border-color: transparent #23712f;
+  /* reduce the damage in FF3.0 */
+  display: block;
+  width: 0; }
+
+/*********************************************
+ * GLOBAL STYLES
+ *********************************************/
+body {
+  background: white;
+  background-color: white; }
+
+.reveal {
+  font-family: "Open Sans", sans-serif;
+  font-size: 30px;
+  font-weight: normal;
+  letter-spacing: -0.02em;
+  color: #777777; }
+
+::selection {
+  color: white;
+  background: #e7ad52;
+  text-shadow: none; }
+
+/*********************************************
+ * HEADERS
+ *********************************************/
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  margin: 0 0 20px 0;
+  color: #2f5398;
+  font-family: "Montserrat", Impact, sans-serif;
+  line-height: 0.9em;
+  letter-spacing: -0.03em;
+  text-transform: none;
+  text-shadow: none; }
+
+.reveal h1 {
+  text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2); }
+
+/*********************************************
+ * LINKS
+ *********************************************/
+.reveal a:not(.image) {
+  color: #2f5398;
+  text-decoration: none;
+  -webkit-transition: color .15s ease;
+  -moz-transition: color .15s ease;
+  -ms-transition: color .15s ease;
+  -o-transition: color .15s ease;
+  transition: color .15s ease; }
+
+.reveal a:not(.image):hover {
+  color: #5f85ce;
+  text-shadow: none;
+  border: none; }
+
+.reveal .roll span:after {
+  color: #fff;
+  background: #1d335e; }
+
+/*********************************************
+ * IMAGES
+ *********************************************/
+.reveal section img {
+  margin: 15px 0px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 4px solid #777777;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  -webkit-transition: all .2s linear;
+  -moz-transition: all .2s linear;
+  -ms-transition: all .2s linear;
+  -o-transition: all .2s linear;
+  transition: all .2s linear; }
+
+.reveal a:hover img {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #2f5398;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.55); }
+
+/*********************************************
+ * NAVIGATION CONTROLS
+ *********************************************/
+.reveal .controls div.navigate-left,
+.reveal .controls div.navigate-left.enabled {
+  border-right-color: #2f5398; }
+
+.reveal .controls div.navigate-right,
+.reveal .controls div.navigate-right.enabled {
+  border-left-color: #2f5398; }
+
+.reveal .controls div.navigate-up,
+.reveal .controls div.navigate-up.enabled {
+  border-bottom-color: #2f5398; }
+
+.reveal .controls div.navigate-down,
+.reveal .controls div.navigate-down.enabled {
+  border-top-color: #2f5398; }
+
+.reveal .controls div.navigate-left.enabled:hover {
+  border-right-color: #5f85ce; }
+
+.reveal .controls div.navigate-right.enabled:hover {
+  border-left-color: #5f85ce; }
+
+.reveal .controls div.navigate-up.enabled:hover {
+  border-bottom-color: #5f85ce; }
+
+.reveal .controls div.navigate-down.enabled:hover {
+  border-top-color: #5f85ce; }
+
+/*********************************************
+ * PROGRESS BAR
+ *********************************************/
+.reveal .progress {
+  background: rgba(0, 0, 0, 0.2); }
+
+.reveal .progress span {
+  background: #2f5398;
+  -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  -ms-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  -o-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+  transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+
+/*********************************************
+ * SLIDE NUMBER
+ *********************************************/
+.reveal .slide-number {
+  color: #2f5398; }

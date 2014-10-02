@@ -16,3 +16,6 @@ February 13, 2013
 
 ### DM Defense
 [Defense presentation](/presentations/dm-defense)
+
+### Migrating Fedora3 to Fedora4
+[Fedora Migrating](/presentations/fedora-migrate)
