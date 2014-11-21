@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>EAD in a MARC-only World</title>
+
+		<meta name="description" content="EAD in a MARC-only World">
+		<meta name="author" content="Adam Wead">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/notsl.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- add in Bootstrap for layout and typography goodies -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal"><div class="slides">
+			
+			<section>
+				<h1>Adam Wead</h1>
+				<h4>Penn State University</h4>
+				<h2><a href="mailto:awead@psu.edu">awead@psu.edu</a> / <a href="http://twitter.com/amsterdamos">@amsterdamos</a></h2>
+			</section>
+
+			<section>
+				<h1>Stranger in a Strange Land</h1>
+				<h2>EAD in a MARC-only World</h2>
+			</section>
+
+
+			<section data-background="img/ref.png" data-transition="fade">
+				<aside class="notes">
+					Graduate school: RILM, RSIM, RIPM, music index. 
+					Bach-Werke-Verzeichnis and NBA with Grove, ML1
+					ML 410, MT, M 1000
+					at some point this happened
+				</aside>
+			</section>
+			
+			<section data-background="img/google.png" data-transition="fade">
+				<aside class="notes">
+					one stop information shop - asking questions with single answers
+					QUESTIONS REQUIRED INTERPRETATION
+				</aside>
+			</section>
+
+			<section data-transition="fade">
+				<form class="form-inline">
+					<p>Search Our Catalog</p>
+  				<div class="form-group">
+    				<input type="text" class="form-control input-lg" placeholder="Enter search terms...">
+    				<button type="submit" class="btn btn-primary btn-lg">Go</button>
+  				</div>
+				</form>
+
+				<aside class="notes">
+					We've been emulating the Google model because it works.
+					We started with things like federated searching and
+					have now settled on the concept of "discovery" but
+					it didn't address the root of the problem.					
+    		</aside>
+			</section>
+
+			<section data-background="img/silos.jpg" data-transition="fade">
+				<aside class="notes">
+					Inherited problem. Good practice, but not extensible. Largely due to the fact that 
+					library systems were operating before the Internet existed.	So to combat the 
+					problem, we've gotten really good at ...		
+    		</aside>
+			</section>
+ 				
+				<section>
+					<h2>Data Transformation</h2>
+					<aside class="notes">
+						Siloed data has to be manipulated to be accessible	
+    			</aside>
+				</section>
+
+				<section>
+					<h2>MARC</h2>
+					<pre id="my-code"><code>
+245 0 4 a| The 1997 A & E entertainment almanac : 
+        b| an information please almanac / 
+        c| Robert Moses, Alicia Potter and Beth Rowen, editors  
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>MODS</h2>
+					<pre id="my-code">
+					<code class="xml">
+<mods>
+  <titleInfo>
+    <nonSort>The</nonSort>
+    <title>1997 A & E entertainment almanac</title>
+    <subTitle>an information please almanac</subTitle>
+  </titleInfo>
+  <note type="statement of responsibility">
+  	Robert Moses, Alicia Potter and Beth Rowen, editors
+  </note>
+</mods>
+				 </code>
+				 </pre>
+				</section>
+
+				<section>
+					<h2>DC</h2>
+					<pre id="my-code">
+					<code class="xml">
+<dc:title>
+  The 1997 A & E entertainment almanac : 
+  an information please almanac / 
+  Robert Moses, Alicia Potter and Beth Rowen, editors  
+</dc:title>
+				 </code>
+				 </pre>
+				</section>
+
+				<section>
+					<h2>and on, and on...</h2>
+					<ul>
+						<li>MARCXML</li>
+						<li>RDA</li>
+						<li>Bibframe</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Fetish metadata</h2>
+					<ul>
+						<li class="fragment">PBCore</li>
+						<li class="fragment">VRA Core</li>
+						<li class="fragment">Premis</li>
+						<li class="fragment">METS</li>
+						<li class="fragment">EAD</li>
+					</ul>
+				  <aside class="notes">
+						We've gotten really good at data representation and transformation.
+						We can describe things in exceedingly great detail.
+						However, all this work has created more...	
+    		  </aside>
+				</section>
+
+				<section data-background="img/more-silos.jpg" data-transition="fade">
+				  <aside class="notes">
+				  	My talk today is how I approached this problem from a specific vantage point.
+				  	Namely collections and "books", or traditional library materials.
+				  	My solutions were unique but effective, and hopefully might be re-used in some ways		
+    		  </aside>
+				</section>
+
+			<section>
+
+				<img src="img/rockhall.jpg" />
+
+				<aside class="notes">
+				  This is where I worked from 2010 to this year.
+				  Setup server and storage systems.
+				  Tasked with creating an online catalog.
+    		</aside>
+
+			</section>
+
+			<section>
+				<h2>A Tale of Two Silos</h2>
+				<ul>
+					<li>MARC data via Millennium</li>
+					<li>archival collections in Archivists' Toolkit</li>
+					<li class="fragment">digital content in collections</li>
+				</ul>
+				<aside class="notes">
+				  How do you combine these in a meaningful way?
+				  Digital content was a top priority; digitizing videos
+    		</aside>
+			</section>
+
+			<section>
+				<h2>EAD to MARC</h2>
+				<ul>
+					<li class="fragment">very common, good solution, but...</li>
+					<li class="fragment">granularity of discovery</li>
+					<li class="fragment">we wanted items within collections to be visible</li>
+					<li class="fragment">we needed the finding aid displayed</li>
+				</ul>
+				<aside class="notes">
+				  Many places rely on separate systems to display finding aids, usually
+				  linked from the records in their catalog.
+    		</aside>
+			</section>
+
+			<section>
+				<h3>librarian is to the MARC record,</h3>
+				<h3>as the archivist is to the finding aid.</h3> 
+			</section>
+
+			<section data-background="img/archivist.jpg" data-transition="fade"></section>
+
+
+				
+				<section data-background="img/fa-1.jpg" data-transition="fade"></section>
+
+				<section data-background="img/fa-2-2.jpg" data-transition="fade"></section>
+				
+				<section>
+					<h2>Finding Aids</h2>
+					<ul>
+						<li>big documents</li>
+						<li>anywhere from a few to thousands of items</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Transformation to EAD</h2>
+					<ul>
+						<li class="fragment">added markup to the exiting format like HTML</li>
+						<li class="fragment">retained its monolithic structure</li>
+						<li class="fragment">remained order-dependent</li>
+					</ul>
+					<aside class="notes">
+					  EAD is terrible as a data structure. Ignored advantages of XML as data. Modeling the document
+					  not the data.
+					 </aside>
+				</section>
+
+				<section>
+					<h2>Our Unique Collections</h2>
+					<ul>
+						<li class="fragment">significant items where in collections</li>
+						<li class="fragment">some collections had thousands of items</li>
+						<li class="fragment">how where you going to find that?</li>
+					</ul>
+				</section>
+
+
+				<section>
+					<h2>Transformational Technologies</h2>
+					<aside class="notes">
+						Data transformation has technological components too. Just as we can
+						transform information into a myriad of formats, we have variety
+						of means to perform the transformation.
+					</aside>
+				</section>
+
+				<section data-background="img/card-catalog.jpg" data-transition="fade">
+					<aside class="notes">
+					  A card catalog functioned as the data format, storage, search, index and presentation.
+						An OPAC has different software components that function for each of these things.
+						MARC is the standard, but there are "stacks" of technology that ultimately get
+						the information to the user's eyes.
+					 </aside>
+				</section>
+
+				<section>
+					<h2>Tech Components</h2>
+					<ul>
+						<li class="fragment">presentation: html</li>
+						<li class="fragment">searching: Blacklight</li>
+						<li class="fragment">indexing and storage: Solr</li>
+						<li class="fragment">Ruby, Rails</li>
+					</ul>
+					<aside class="notes">
+						These are the components we chose to transform our data.
+						The data format, indexing and presentation are all separate.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Transforming EAD</h2>
+					<aside class="notes">
+					  Tranforming MARC is easy, fundamental use for Blacklight.
+						How was I going to use these tools to transform our
+						massive finding aids?
+					</aside>
+				</section>
+
+				<section data-background="img/blow-up.jpg" data-transition="fade">
+					<aside class="notes">
+					  The solution was to quite literally, blow them up into lots of
+					  tiny pieces
+					 </aside>
+				</section>
+
+				<section>
+					<h2>Breaking up is hard to do...</h2>
+					<ul>
+						<li class="fragment">one piece for the finding aid</li>
+						<li class="fragment">one piece each for every series, sub-series, folder, etc.</li>
+						<li class="fragment">one piece each for every item</li>
+						<li class="fragment">thousands of pieces per collection</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Searching and Relevance</h2>
+					<ul>
+						<li class="fragment">MARC-based items interfiled with items from collections</li>
+						<li class="fragment">boosts the relevance of items, not just collections</li>
+						<li class="fragment">exposes items across and within collections</li>
+						<li class="fragment">faceted search capabilities</li>
+						<li class="fragment">minimal Schema.org integration</li>
+						<li class="fragment">container-level pieces discarded from search results</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Presentation</h2>
+					<ul>
+						<li>pieces are re-assembled for finding aid display</li>
+						<li>only relevant sections are displayed</li>
+						<li>default view does not show the entire finding aid</li>
+						<li>because people don't read web pages [1]</li>
+					</ul>
+				</section>
+
+			<!-- catalog screenshots -->
+			<section data-transition="fade">
+				<h1>And now...</h1>
+				<a href="http://catalog.rockhall.com">http://catalog.rockhall.com</a>
+			</section>
+
+			<!-- 
+
+				to be captured (in this order)
+				0 http://catalog.rockhall.com/catalog?utf8=%E2%9C%93&ref=ref28&search_field=all_fields&q=Jerry+Wexler
+				1 
+        2 http://catalog.rockhall.com/catalog/ARC-0278
+        3 - description
+        4 - collection history
+        5 - access and use
+        6 - contents
+        7 http://catalog.rockhall.com/catalog/ARC-0278/ref11
+        8 http://catalog.rockhall.com/catalog/ARC-0278/ref13
+
+				  Ralph Gleason search, scroll down:
+        9 http://catalog.rockhall.com/catalog?utf8=%E2%9C%93&ref=ref13&search_field=all_fields&q=Ralph+Gleason
+
+				Austin City Limits tree of series
+				10 http://catalog.rockhall.com/catalog/ARC-0418/ref14
+				11 http://catalog.rockhall.com/catalog/ARC-0418/ref600
+				12 http://catalog.rockhall.com/catalog/ARC-0418/ref182
+				13  - additional image with the "Show more" button
+				
+				   Kinky Friedman search:
+				14 http://catalog.rockhall.com/catalog?utf8=%E2%9C%93&ref=ref28&search_field=all_fields&q=Kinky+Friedman
+
+			-->
+
+			<section>
+				<section data-background="img/catalog/00.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/01.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/02.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/03.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/04.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/05.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/06.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/07.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/08.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/09.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/10.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/11.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/12.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/13.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/catalog/14.png" data-transition="fade"></section>
+			</section>
+		
+				<section>
+					<h2>Digital Content</h2>
+					<ul>
+						<li class="fragment">video was highest priority</li>
+						<li class="fragment">digitized all induction footage, other important series</li>
+						<li class="fragment">decided on PBCore as our metadata standard</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Deeper Technology Stack</h2>
+					<ul>
+						<li class="fragment">Hydra</li>
+						<li class="fragment">adds Fedora repository for storage and preservation</li>
+						<li class="fragment">enabled description and arrangement of video</li>
+						<li class="fragment">PBCore records attached to pieces of an EAD</li>
+					</ul>
+					<aside class="notes">
+						leaves from a tree in a different yard
+					</aside>
+				</section>
+
+			<!-- 
+
+				00 http://catalog.rockhall.com/catalog/RG-0010/ref42
+				01 http://catalog.rockhall.com/catalog/RG-0010/rrhof:1575
+				02 http://catalog.rockhall.com/catalog/ARC-0008/ref2
+				03 http://catalog.rockhall.com/catalog/ARC-0008/ref12
+				04 http://catalog.rockhall.com/catalog/ARC-0008/ref3
+				05 http://catalog.rockhall.com/catalog/ARC-0008/rrhof:2144
+
+			-->
+
+			<section>
+				<section data-background="img/digital/edit-redacted.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/digital/00.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/digital/01.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/digital/02.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/digital/03.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/digital/04.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<section data-background="img/digital/05.png" data-transition="fade"></section>
+			</section>
+
+			<section>
+				<h2>Did this work?</h2>
+				<ul>
+					<li class="fragment">yes, but sustainability is unknown</li>
+	    		<li class="fragment">requires a full-time developer</li>
+	    		<li class="fragment">unique approach to EAD indexing that doesn't fit other institutions</li>
+	    		<li class="fragment">self-contained, closed system</li>
+	    		<li class="fragment">dependent on specific technologies</li>
+	    	</ul>
+			</section>
+
+			<section>
+				<h2>What does the future hold?</h2>
+	 			<ul>
+	 			  <li class="fragment">linked data</li>
+	 			  <li class="fragment">MARC has BIBFRAME</li>
+	 			  <li class="fragment">EAD has no Bibframe equivalent, yet</li>
+	 			  <li class="fragment">most other schemas do not either... MODS does, pbcore does not</li>
+	 			  <li class="fragment">TOO MANY SCHEMAS!</li>
+	 			</ul>
+			</section>
+
+			<section>
+				<h2>Next Steps</h2>
+				<ul>
+          <li class="fragment">ontologies for our silos</li>
+          <li class="fragment">ArcLight</li>
+          <li class="fragment">Linked Data Platform (LDP)</li>
+          <li class="fragment">ArchivesSpace</li>
+          <li class="fragment"><em>implementing</em> linked data</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3>Adam Wead</h3>
+				<h5>Penn State University</h5>
+				<h3><a href="mailto:awead@psu.edu">awead@psu.edu</a> / <a href="http://twitter.com/amsterdamos">@amsterdamos</a></h3>
+			</section>
+
+			<section>
+				<h2>Notes</h2>
+				<ol>
+					<li>http://uxmyths.com/post/647473628/myth-people-read-on-the-web</li>
+				</ol>
+			</section>
+
+			<section>
+				<h2>Links</h2>
+				<ul>
+					<li><a href="http://projectblacklight.org/">http://projectblacklight.org/</a></li>
+					<li><a href="http://code4lib.org/">http://code4lib.org/</a></li>
+					<li><a href="http://www.w3.org/2012/ldp/wiki/Main_Page">http://www.w3.org/2012/ldp/wiki/Main_Page</a></li>
+					<li><a href="http://www.archivesspace.org/">http://www.archivesspace.org/</a></li>
+				</ul>
+			</section>
+
+
+		</div></div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,16 @@
+@mixin blob($backgroundColor, $color, $colorGradient) {
+  position:relative;
+  padding:5px;
+  margin:5px;
+  color: $backgroundColor;
+  background: $color; /* default background for browsers without gradient support */
+  /* css3 */
+  background:-webkit-gradient(linear, 0 0, 0 100%, from($color), to( $colorGradient));
+  background:-moz-linear-gradient($color,  $colorGradient);
+  background:-o-linear-gradient($color,  $colorGradient);
+  background:linear-gradient($color,  $colorGradient);
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+  box-shadow: 0px 0px 6px rgba(0,0,0,0.3);
+}

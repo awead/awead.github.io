@@ -19,3 +19,6 @@ February 13, 2013
 
 ### Migrating Fedora3 to Fedora4
 [Fedora Migrating](/presentations/fedora-migrate)
+
+### Northern Ohio Technical Services Librarians
+[Stranger in a Strange Land: EAD in a MARC-only world](/presentations/notsl)
