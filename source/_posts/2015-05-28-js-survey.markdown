@@ -1,0 +1,179 @@
+---
+layout: post
+title: "Surveying the Javascript Landscape"
+date: 2015-05-28 09:38
+comments: true
+categories: 
+---
+
+Taking a break from my usual Ruby work, I did a "recovery sprint" and explored some Javascript. My skills are weak at best
+in this area and it was my intention to improve them by learning some new technologies.
+
+## Node.js
+
+I've been hearing a lot about Node, and vaguely knew what I was. There's a lot out there and
+even more about what you can do with it. In short, it's a web application platform built on Chrome's javascript
+runtime environment. It's a single process application, which seems weird at first, but that's the way it works and it work
+well.
+
+There are tons of great tutorials on Node at [Node School](http://nodeschool.io/). The one I did was "learnyounode" which is
+a series of 13 exercises. It's pretty simple, although I got annoyed a few times and grabbed the answers from
+[learnyounode-solutions](https://github.com/frasertweedale/learnyounode-solutions). Hey, I'm not getting graded on this or
+anything. It's easy to get started:
+
+    brew install npm
+    npm install -g learnyounode
+    learnyounode
+
+And you're off and running. I posted [my solutions](https://github.com/awead/learnyounode) as well if you're intested. 
+However, I didn't go very deep into Node because I wanted to get a broader picture of the Javascript development landscape.
+
+## Express.js
+
+Coming from a Rails background, I was more interested in how you can leverage Node to create web applications. This led
+me to [Express.js](http://expressjs.com/) which is pretty much exactly what a Rails developer might expect if they were
+looking for Node on "Rails."
+
+Express has an app generator that will build a complete application structure in a directory. From there, you can start
+the application and begin customizing routes and content. It features a routing mechanism and a template language called
+Jade, although you can supply others if you wish. In short, to start a new Express app:
+
+    npm install express
+    npm install express-generator -g
+    express my-app
+    cd my-app
+    npm install
+    npm start
+
+It even starts up the webserver on the usual 3000 port. The similarities with Rails were actually a little eerie. Express
+isn't a full MVC framework, though, it's more like VC, or just V for that matter. As-is, Express gives you views and routes
+so it's very easy to start creating simple static pages or pages that are transformed using JSON data objects.
+
+For example, if I wanted to add a simple "About me" page to my base Express application, I create a route:
+
+``` javascript routes/about.js
+var express = require('express');
+var router = express.Router();
+
+/* GET about page */
+router.get('/', function(req, res, next) {
+  res.render('about', { title: 'About' });
+});
+
+module.exports = router;
+
+```
+
+Because the route file is `about.js` it's going to respond to GET requests at `/about` which is why the path is only "/"
+on line 5. After that, it's just passing a JSON object to the view template, which looks like:
+
+``` javascript views/about.jade
+extends layout
+
+block content
+  h1= title
+  p About me
+```
+
+In order to have the page render, we'll need to wire it up to our application. Add these lines in the
+relevant locations of your `app.js` file:
+
+
+    var about = require('./routes/about');
+
+    app.use('/about', about);
+
+
+Now you can restart the server and view the page. Not much there, but you get the idea. I left it very basic because 
+I was more intested in...
+
+## Testing
+
+Coming from Rails, I've had TDD/BDD beaten into my head so it was very hard for me to doing anything without asking myself
+"Where is this tested?" To answer that, you have to look at some testing frameworks. I started with 
+[expect.js](https://github.com/Automattic/expect.js) which has the syntax you might _expect_ (heh) with Rspec. However,
+getting it wired up in Express required a few additional bits: [Mocha](http://mochajs.org/) and 
+[superagent](https://github.com/visionmedia/superagent). Expect.js provides the language for testing, Mocha provides the
+framework, which is a lot like Rspec and uses "it" and "describe" blocks. Superagent is a client-side HTTP request library
+that is making the actual calls to your app.
+
+Here's how I put it all together
+
+
+    npm install expect.js superagent
+    npm install -g mocha
+    mkdir test
+    mocha
+
+After executing that last command, it will run mocha and report "0 passing" tests. So, let's add one for our about page:
+
+``` javascript test/about.js
+var expect = require('expect.js');
+var request = require('superagent');
+
+describe('the about page', function() {
+  it('returns information about me', function(done) {    
+    request
+      .get('/about')
+      .end(function(err, res){
+        expect(res.body).to.contain('About me');
+      });
+      done();
+  });
+});
+
+```
+
+Superagent makes the get request and using expect.js we can parse the body of the response for the expected content. Note:
+I was getting the warning "double callback!" which may be a bug, but I'm not sure. Everywhere on the net, this seems to be
+the accepted syntax, so take this for what it's worth.
+
+### Jasmine
+
+Another testing method is to use [Jasmine](http://jasmine.github.io/2.3/node.html) which basically does the same as above,
+even with some of the same dependencies, but slightly differently. To setup, let use our `package.json` the way it's meant
+to be and specify our dependencies. Add these lines to the `dependencies` key:
+
+    "jasmine-node": "~>1.14",
+    "request": "~2.56"
+
+Then run:
+
+    npm install
+    jasmine init
+
+Jasmine follows Rspec a little more closely and creates a `spec` directory and assumes you'll name your tests with the
+`_spec` extension. To test our about page using Jasmine:
+
+``` javascript spec/about_spec.js
+var request = require('request');
+
+it("renders the about page", function(done) {
+  request("http://localhost:3000/about", function(error, response, body){
+    expect(body).toContain("About me");
+    done();
+  });
+});
+
+```
+
+One thing to note, this test will only pass if your app.js is actually running. There are ways to wrap this so that
+Jasmine will start up the app first before testing.
+
+## M is for Model
+
+The last bits to add into this mix are getting Express to model data in a ORM kind of way like Rails does. Again, there are
+lots to choose from here: Bookshelf, Backbone, Mongoose, Persistence, Sequelize, and the list goes on.
+
+Many of these cater to one particular database, such as [Mongoose](http://mongoosejs.com/) connecting to MongoDB. There's
+a specific platform that wraps these together: [MEAN](http://mean.io/) which stands for MongoDB, Express, Angular.js, and Node.js.
+It's reminiscent of LAMP.
+
+[Backbone.js](http://documentcloud.github.io/backbone/) seems to be the most data agnostic, while others like Mongoose,
+focus on specific sources. For example, [Sequelize](http://docs.sequelizejs.com/en/latest/) does PostGRESql and MySQL.
+
+## Too Many Choices?
+
+[Angular.js](https://angularjs.org/) is a popular choice as a fully-fledged MVC framework for Javascript, and it can be
+pulled into the mix in Express apps, as MEAN shows above. Lastly, Express isn't the only choice for platforms.
+[react.js](https://facebook.github.io/react/) is another "V" option in the MVC of the Javascript world.
