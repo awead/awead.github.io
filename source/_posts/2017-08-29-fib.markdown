@@ -1,0 +1,173 @@
+---
+layout: post
+title: Refactoring A Fibonacci Sequence Generator
+date: 2017-08-29 13:18
+comments: true
+categories:
+---
+
+I came across some sample
+[interview questions](https://resources.workable.com/senior-ruby-developer-interview-questions})
+for a senior Ruby developer the other day, and one of them caught my eye:
+
+> Write a single line of Ruby code that prints the Fibonacci sequence of any length as an array.
+
+"Huh," I thought, "that sounds fun." I took this to mean, there was a single-line method that could
+take a number, like 10 for example, and return the first 10 Fibonacci numbers:
+
+    >  fib(10)
+    => [1,1,2,3,5,8,13,21,34,55]
+
+So I wrote a test for cover the bases:
+
+``` ruby
+class FibonacciTest < Minitest::Test
+  def test_one_fibonacci_number
+    assert_equal [1], fib(1)
+  end
+
+  def test_two_fibonacci_numbers
+    assert_equal [1,1], fib(2)
+  end
+
+  def test_three_fibonacci_numbers
+    assert_equal [1,1,2], fib(3)
+  end
+
+  def test_ten_fibonacci_numbers
+    assert_equal [1,1,2,3,5,8,13,21,34,55], fib(10)
+  end
+end
+```
+
+Just to get some code on the page, I began with an ugly, shameless, multi-line solution:
+
+``` ruby
+def fib(count)
+  i = 1
+  results = []
+  while i <= count do
+    if i < 3
+      results << 1
+    else
+      results << results[-1] + results[-2]
+    end
+    i = i + 1
+  end
+  return results
+end
+```
+
+Ok, that worked. Now what? It has to get down to one line somehow. My process was to work this like a normal
+refactoring and see what jumped out at me. The first thing I noticed was that I don't have keep a counter if
+I use a range operation. Replacing the `while` with `Range` gets us:
+
+``` ruby
+def fib(count)
+  results = []
+  (1..count).each do |i|
+    if i < 3
+      results << 1
+    else
+      results << results[-1] + results[-2]
+    end
+  end
+  return results
+end
+```
+
+We've eliminated the `while` loop, cut out a few lines, and the counter variable. The next thing that jumps out
+is `results`. Is there a way we can stop obsessing over the results array?
+
+Full disclosure: I cheated a bit.
+
+I looked up solutions on Stack Exchange, but the honest truth is, I didn't understand them. None of them
+did exactly what I was trying to do, so I was going to have to dig further. I noticed a lot of them
+used the `inject` method, which I'd never heard of before. Looking
+[that](https://ruby-doc.org/core-2.4.1/Enumerable.html#method-i-inject)
+up gave me an idea: we can pass an array into `inject` to start the process going and not have to
+initialize it outside of the loop:
+
+
+``` ruby
+def fib(count)
+  (1..count).inject([]) do |results, i|
+    if i < 3
+      results << 1
+    else
+      results << results[-1] + results[-2]
+    end
+  end
+end
+```
+
+Nice! Now we're getting somewhere. Next, I looked at the conditional. Knowing a little bit about the sequence,
+the first two numbers are always 1. If we use that, we can _seed_ the array we're passing in and avoid the
+conditional:
+
+``` ruby
+def fib(count)
+  (1..count).inject([1,1]) do |results, i|
+    results << results[-1] + results[-2]
+  end
+end
+```
+
+But, this gives us errors because our `count` is no longer correct. I need to account (pun intended) for the
+seeded array:
+
+``` ruby
+def fib(count)
+  (1..count-2).inject([1,1]) do |results, i|
+    results << results[-1] + results[-2]
+  end
+end
+```
+
+We still have one outstanding error:
+
+    Failure:
+    FibonacciTest#test_one_fibonacci_number [fib.rb:11]:
+    Expected: [1]
+      Actual: [1, 1]
+
+When the range is negative, `inject` still executes. There is no value passed for `i`, so it just
+returns the array `[1,1]`. This is okay if our count is 2, but if it's 1, we need to ensure the
+array we're returning is only as long as the count:
+
+``` ruby
+def fib(count)
+  (1..count-2).inject([1,1]) do |results, i|
+    results << results[-1] + results[-2]
+  end[0..count-1]
+end
+```
+
+It looks a bit odd, but we can transform it into one line thusly:
+
+``` ruby
+def fib(count)
+  (1..count-2).inject([1,1]) { |results, i| results << results[-1] + results[-2] }[0..count-1]
+end
+```
+
+All done...except! This is technically three lines with the method definition. Using a lambda we can
+remove that too, so it's truly one line:
+
+```
+fib = ->(count) { (1..count-2).inject([1,1]) { |results, i| results << results[-1] + results[-2] }[0..count-1] }
+```
+
+And then it can be invoked like a Proc:
+
+    >  fib.call(10)
+    => [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+
+## Further Thoughts
+
+I couldn't handle the zero case, `fib.call(0)`, which might ought to return an empty array. Maybe there's
+something else hidden there waiting to be refactored.
+
+Lately, I've been avoiding one-liners because they obfuscate things. I probably would have stopped
+at a three-line method and left it at that, but the challenge is more to test your deeper understanding of
+Ruby's methods.
