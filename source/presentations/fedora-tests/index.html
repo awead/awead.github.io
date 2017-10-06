@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<base href="/presentations/fedora-tests/" target="_blank">
+
+		<title>Performance Metrics with Valkyrie and Hyrax</title>
+
+		<meta name="description" content="Performance Metrics with Valkyrie and Hyrax">
+		<meta name="author" content="Adam Wead">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.css" />
+		<link rel="stylesheet" href="css/theme/psu.css" id="theme" />
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css" />
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<header class="logo">
+				<img id="psu-shield" src="img/cat.png"/>
+			</header>
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Performance Metrics with Hyrax and Valkyrie</h1>
+					<h2>Adam Wead</h2>
+					<h3>Penn State University</h3>
+					<p>
+						<small><a href="mailto:awead@psu.edu">awead@psu.edu</a> / <a href="http://twitter.com/amsterdamos">@amsterdamos</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h1>Overview</h1>
+					<h2>Part 1: Testing and Results</h2>
+					<ul>
+						<li>testing apparatus</li>
+						<li>results</li>
+						<li>charts and graphs to back me up</li>
+					</ul>
+					<h2>Part 2: Performance Implications</h2>
+					<ul>
+						<li>performance problems with inverted collections</li>
+						<li>more charts and graphs to back me up</li>
+						<li>how we might make things better</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Part 1: Testing and Results</h1>
+				</section>
+
+				<section>
+					<h1>The Problem</h1>
+					<blockquote>
+						Penn State's Cultural Heritage Object repository (CHO) project will migrate collections from
+						ContentDM with 300,000 items. <br/>
+            <br/>
+            What would performance be like with that?
+					</blockquote>
+				</section>
+
+				<section>
+					<h1>The Experiment</h1>
+					<blockquote>
+						Build collections with many works, and works with many files, using a default Hyrax application, and
+						Valkyrie with different types of adapters. Benchmark the performance of each and look at the results.
+					</blockquote>
+				</section>
+
+				<section>
+					<h1>The Setup</h1>
+					<ul>
+						<li>
+							Three Tests:
+							<ol>
+								<li>Inverted collections with 100,000 works</li>
+								<li>Nested collections with 10,000 works</li>
+								<li>1,000 works with files</li>
+							</ol>
+						</li>
+						<li>Four Environments
+							<ol>
+								<li>Hyrax 1.0.0.RC1</li>
+								<li>Valkyrie with Postgres + Solr</li>
+								<li>Valkyrie with Fedora + Solr</li>
+								<li>Valkyrie with ActiveFedora</li>
+							</ol>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Test Apparatus</h1>
+          <ul>
+            <li>2 servers: 1 for Rails; 1 Fedora, Postgres, and Solr</li>
+            <li>Red Hat Enterprise Linux Server release 7.4 (Maipo), virtualized</li>
+            <li>4 Intel(R) Xeon(R) CPU E5-2697 v2 @ 2.70GHz</li>
+            <li>16 GB RAM</li>
+          </ul>
+				</section>
+
+				<!-- Inverted collections ################################################################ -->
+
+				<section>
+          <h1>Inverted Collections</h1>
+					<section>
+	          <ul>
+	          	<li>one collection with 100,000 works</li>
+	          	<li>works point to the collection: collection &larr; work</li>
+	          	<li>benchmarked around saving a new work with the referenced collection</li>
+	          </ul>
+	        </section>
+
+          <section>
+            <h2>Valkyrie Test</h2>
+	          <pre><code>
+  Benchmark.benchmark do |bench|
+    work = Work.new
+    work.part_of_collections = [collection.id.to_uri]
+    bench.report { adapter.persister.save(resource: work) }
+  end
+	          </code></pre>
+					</section>
+
+          <section>
+          	<h2>Hyrax Test</h2>
+	          <pre><code>
+
+    Benchmark.benchmark do |bench|
+      i = Image.new
+      bench.report do
+        i.member_of_collections = [collection]
+        i.save
+      end
+    end
+	          </code></pre>
+					</section>
+
+					<section>
+	          <h2>Comparisons</h2>
+						<img src="img/inverted_collections.png" class="performance-chart" />
+					</section>
+
+					<section>
+	          <h2>Results</h2>
+	          <ul>
+              <li>Postgres adapter: finished in 15 minutes</li>
+              <li>Fedora adapter: finished in 93 minutes</li>
+              <li>ActiveFedora adapter: stopped after 17 hours at ~25,000 works</li>
+              <li>Hyrax: stopped after 12 hours at ~12,000 works</li>
+	          </ul>
+					</section>
+				</section>
+
+				<!-- Nested collections ################################################################ -->
+
+				<section>
+          <h1>Nested Collections</h1>
+					<section>
+	          <ul>
+	          	<li>one collection with 10,000 nested works</li>
+	          	<li>collection &rarr; work, or collection contains all the works</li>
+	          	<li>benchmarked around adding the new work to the collection and saving</li>
+	          </ul>
+	        </section>
+
+	        <section>
+						<h2>Valkyrie Test</h2>
+	          <pre><code>
+    Benchmark.benchmark do |bench|
+      child = Work.new
+      result = adapter.persister.save(resource: child)
+      bench.report do
+        collection_resource.has_collections << result.id
+        adapter.persister.save(resource: collection_resource)
+      end
+    end
+	          </code></pre>
+					</section>
+
+          <section>
+          	<h2>Hyrax Test</h2>
+	          <pre><code>
+
+    Benchmark.benchmark do |bench|
+      child = Image.new
+      child.save
+      bench.report do
+        parent.ordered_members << child
+        parent.save
+      end
+    end
+	          </code></pre>
+					</section>
+
+					<section>
+	          <h2>Results: EVERYONE FAILED!</h2>
+	          <ul>
+              <li>Postgres adapter: system locked up at 5,800 works after 2.5 hours hitting 92% CPU</li>
+              <li>Fedora adapter: Net::ReadTimeout at 2,000 works after 10.5 hours</li>
+              <li>ActiveFedora adapter: forcibly terminated after 208 works, taking 2 hours</li>
+              <li>Hyrax: no testing done with 10,000 works</li>
+	          </ul>
+	        </section>
+
+					<section>
+						<h2>Comparison</h2>
+						<p>Test was reduced to 1,000 works</p>
+						<img src="img/nested_collections.png" class="performance-chart" />
+					</section>
+				</section>
+
+				<!-- Files ################################################################ -->
+
+				<section>
+          <h1>Files</h1>
+					<section>
+	          <ul>
+	          	<li>1,000 works, each with a unique 1 MB file</li>
+	          	<li>benchmarked around creating the file and work, attaching them together, and saving</li>
+	          </ul>
+	        </section>
+
+	        <section>
+						<h2>Valkyrie Test</h2>
+	          <pre><code>
+    Benchmark.benchmark do |bench|
+      id = SecureRandom.uuid
+      randomize_file(id)
+      bench.report do
+        work = Work.new(id)
+        file = storage_adapter.upload(File.open('tmp/small_random.bin', 'r'), resource: work)
+        work.has_files = [file.id]
+        metadata_adapter.persister.save(resource: work)
+      end
+    end
+	          </code></pre>
+					</section>
+
+          <section>
+          	<h2>Hyrax Test</h2>
+	          <pre><code>
+
+    Benchmark.benchmark do |bench|
+      randomize_file
+      bench.report do
+        image = create_image # returns saved image with default metadata and permissions
+        permissions = image.permissions.map(&:to_hash)
+        file_set = FileSet.new
+        actor = Hyrax::Actors::FileSetActor.new(file_set, user)
+        actor.create_metadata(visibility: 'open')
+        file_set.save
+        Hydra::Works::AddFileToFileSet.call(file_set, File.open('tmp/small_random.bin', 'r'), :original_file)
+        actor.attach_to_work(image)
+        actor.file_set.permissions_attributes = permissions
+        image.save
+      end
+    end
+	          </code></pre>
+					</section>
+
+					<section>
+						<h2>Comparisons</h2>
+						<img src="img/files.png" class="performance-chart" />
+					</section>
+				</section>
+
+				<section>
+					<h1>The Decision</h1>
+					<blockquote>
+						Because of our 300,000-work collection use case, Penn State opted to use Valkyrie
+						because it demonstrated the ability to handle extremely large collections
+					</blockquote>
+          <ul>
+            <li>nested collections would be much smaller</li>
+            <li>files would be stored outside of Fedora</li>
+            <li>metadata and content (maybe) could be pushed to Fedora asynchronously</li>
+          </ul>
+				</section>
+
+				<!-- Part 2 ################################################################ -->
+
+				<section>
+					<h1>Part 2: Performance Implications</h1>
+				</section>
+
+        <section>
+          <div class="leading"><h1>Inverted Collections</h1></div>
+  				<section>
+            <p>Why do ActiveFedora and Hyrax lag so noticeably behind?</p>
+            <img src="img/inverted_annotated.png" class="performance-chart" />
+  				</section>
+
+  				<section>
+  					<h2>Local Test Apparatus</h2>
+  					<ul>
+  						<li>moved to testing on a laptop</li>
+  						<li>Rails, Fedora, Solr, and Postgres all running locally</li>
+  						<li>2013 MacBook Pro, 2.6 GHz Intel Core i5, 8 GB RAM</li>
+  					</ul>
+  				</section>
+
+					<section>
+						<h2>New Testing Strategy</h2>
+						<ul>
+							<li>same as before, but capped at 25,000 works</li>
+							<li>focused specifically on Valkyrie's ActiveFedora adapter</li>
+							<li>Hyrax was not tested</li>
+							<li>logged requests to Fedora and Solr</li>
+							<li>graphed response times and overall number of requests</li>
+						</ul>
+					</section>
+
+					<section>
+            <h2>Local Comparison</h2>
+						<p>Does a laptop environment perform similarly to the server environment? <em>Yes</em></p>
+            <img src="img/local_active_fedora.png" class="performance-chart" />
+					</section>
+
+					<section>
+						<h2>Fedora and Solr Requests</h2>
+						<ul>
+              <li>
+              	Valkyrie's ActiveFedora adapter makes 10 total requests per work:
+                <ul>
+                	<li>2 POSTs to Fedora: create the work and ACL</li>
+              	  <li>5 GETs to Fedora: 1 work, 3 ACL, 1 work's /list_source (404) </li>
+                  <li>3 updates to Solr</li>
+                </ul>
+              </li>
+              <li>By comparison, the Fedora adapter makes only one each to Fedora and Solr</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Fedora GET Requests</h2>
+            <p>Is reading from Fedora limiting performance? <em>No</em></p>
+            <img src="img/fedora_get.png" class="performance-chart" />
+            <p>5 GETs x 25,000 works = 125,000 requests</p>
+					</section>
+
+					<section>
+						<h2>Fedora POST Requests</h2>
+            <p>Is writing to Fedora limiting performance? <em>Somewhat</em></p>
+            <img src="img/fedora_post.png" class="performance-chart" />
+            <p>2 POSTs x 25,000 works = 50,000 requests</p>
+					</section>
+
+					<section>
+						<h2>Solr Updates</h2>
+            <p>Are Solr commits limiting performance? <em>Yep!</em></p>
+            <img src="img/solr_updates.png" class="performance-chart" />
+            <p>3 updates x 25,000 works = 75,000 requests</p>
+					</section>
+
+					<section>
+						<h2>Solr Comparisons</h2>
+						<p>Not committing with each update saves a lot of time</p>
+						<ul>
+              <li>PSU config with Solr 5.3.1 took ~11.5 hours</li>
+              <li>Hyrax config with Solr 7.1.0 took ~11.25 hours</li>
+              <li>Hyrax config with Solr 7.1.0 without commits took 1 hour</li>
+              <li>autoCommit and softCommit set to -1 in solrconfig.xml</li>
+              <li>softCommit disabled directly in ActiveFedora</li>
+						</ul>
+						<pre><code>
+
+    # indexing.rb, line 42
+    def update_index
+      SolrService.add(to_solr, softCommit: false) # DON'T DO THIS AT HOME!
+    end
+            </code></pre>
+					</section>
+
+          <section>
+            <h2>Final Result</h2>
+            <p>ActiveFedora adapter with and without Solr commits</p>
+            <img src="img/final_comparison.png" class="performance-chart" />
+          </section>
+				</section>
+
+        <section>
+          <h1>Conclusions</h1>
+          <ul>
+            <li>Solr matters</li>
+            <li>Valkyrie is faster because it's more efficient with Solr updates</li>
+            <li>Using selective commits in ActiveFedora can improve performance</li>
+            <li>Fedora can be performance limiting, but not in all cases</li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>Remaining Questions</h1>
+          <p>lots!!!!</p>
+          <ul>
+            <li>Does Hyrax have the same performance problems? Hyrax 2.0?</li>
+            <li>I want 10,000 ordered works. What do I do?</li>
+            <li>What about files?</li>
+          </ul>
+        </section>
+
+        <section>
+          <h1>What Does This Mean?</h1>
+          <p>Is Valkyrie "better" than Hyrax? <em>No</em></p>
+          <p>Should I use Valkyrie instead of Hyrax? <em>Depends</em></p>
+          <p>Will Valkyr-izing Hyrax fix these problems? <em>Potentially</em></p>
+        </section>
+
+        <section>
+          <h1>I want more!</h1>
+          <ul>
+            <li>Full report: <a href="http://awead.github.io/fedora-tests/">http://awead.github.io/fedora-tests/</a></li>
+            <li>Hyrax test app: <a href="https://github.com/awead/hyrax-testing">https://github.com/awead/hyrax-testing</a></li>
+            <li>Valkyrie test app: <a href="https://github.com/psu-libraries/choish">https://github.com/psu-libraries/choish</a></li>
+          </ul>
+        </section>
+
+				<section data-transition="fade">
+					<h1>Thank You</h1>
+					<h2>Adam Wead</h2>
+					<h3>Penn State University</h3>
+					<p>
+						<small><a href="mailto:awead@psu.edu">awead@psu.edu</a> / <a href="http://twitter.com/amsterdamos">@amsterdamos</a></small>
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

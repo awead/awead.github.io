@@ -10,7 +10,6 @@ footer: true
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script type="text/javascript" src="/fedora-tests/chart.js"></script>
-<link href="/fedora-tests/watermark.css" media="screen, projection" rel="stylesheet" type="text/css">
 
 # Overview
 
@@ -284,3 +283,71 @@ This compares the total time per each benchmark for all four backends.
 ## Files
 
 <div id="fileComparison" style="width:100%; height:400px;"></div>
+
+# Further Analysis
+
+## Decreased Performance with Collections
+
+Why does ingest time increase with inversely related collections when using ActiveFedora
+in Valkyrie or Hyrax? When using the Fedora and Postgres adapters in Valkyrie, performance remains flat.
+
+Additional tests were conducted locally on a laptop because servers were no longer available.
+
+### Collection Performance Locally
+
+A collection with 25K items, similar to the collection test performed above, but locally, on
+a laptop.
+
+<div id="localCollectionComparison" style="width:100%; height:400px;"></div>
+
+### Fedora and Solr Requests
+
+If Fedora performance is degrading we might see a similar increase in response times with the
+different HTTP requests sent to it.
+
+#### Fedora POST
+
+Each time a new work is added to the collection, two POST actions are done: one for the work, and
+a second for the access control list resource.
+
+[comment]: <>  Extracted the times from the Fedora log:
+[comment]: <>  zcat local_active_fedora_collections_25000.log.Z | grep 8986 | grep ": HTTP POST" | awk '{print $9}'
+
+<div id="local_active_fedora_collections_25000_fedora_post" style="width:100%; height:400px;"></div>
+
+#### Fedora GET
+
+For each new work, there were 5 GET requests:
+
+* 1 for the work
+* 3 for access control list resources
+* 1 a 404 for the work's `/list_source`
+
+[comment]: <>  Extracted the times from the Fedora log:
+[comment]: <>  zcat local_active_fedora_collections_25000.log.Z | grep 8986 | grep ": HTTP GET" | awk '{print $9}'
+
+<div id="local_active_fedora_collections_25000_fedora_get" style="width:100%; height:400px;"></div>
+
+#### Solr Update
+
+75004 requests: all updates except for one select to find the collection at the beginning.
+
+50002 total Solr documents:
+
+* 25001 Valkyrie::Persistence::ActiveFedora::ORM::Resource (25000 works + 1 collection)
+* 25001 Hydra::AccessControl
+
+<div id="solrComparison" style="width:100%; height:400px;"></div>
+
+[comment]: <> Sum up total Solr requests:
+[comment]: <> grep solr active_fedora_collections_1000.log | awk '{gsub(/\(|\)|m|s/,"",$9)}1' | awk '{sum += $9} END {print sum}'
+[comment]: <> Sum up total Fedora requests:
+[comment]: <> grep HTTP active_fedora_collections_1000.log | grep 8986 | awk '{gsub(/\(|\)|m|s/,"",$9)}1' | awk '{sum += $9} END {print sum}'
+
+### Comparing Commits
+
+<div id="finalCollectionComparison" style="width:100%; height:400px;"></div>
+
+[comment]: <>  With PSU's 5.3 solr: 2055.80s user 105.75s system 5% cpu 11:23:40.56 total
+[comment]: <>  With Hyrax 7.1.0 solr configuration: 2060.68s user 109.87s system 5% cpu 11:17:56.82 total
+[comment]: <>  solr with no commits: 1993.54s user 102.99s system 59% cpu 59:07.53 total

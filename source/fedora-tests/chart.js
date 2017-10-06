@@ -37,15 +37,37 @@ window.onload = function() {
     return result;
   }
 
+  function request_results(data) {
+    var result = {
+      axisX: { title: "Requests", labelFontSize: 14, titleFontSize: 20 },
+      axisY: { title: "Time (ms)", labelFontSize: 14, titleFontSize: 20 },
+      zoomEnabled: true,
+      data: [
+        { type: "line", showInLegend: false, name: "Requests", dataPoints: getDataPointsFromCSV(data, 0) }
+      ]
+    };
+    return result;
+  }
+
   function render_individual_chart(selector, data) {
     var chart = new CanvasJS.Chart(selector, individual_results(data));
     chart.render();
   }
 
-  function combined_results(data) {
+  function render_request_chart(selector, data) {
+    var chart = new CanvasJS.Chart(selector, request_results(data));
+    chart.render();
+  }
+
+  function combined_results(data, options) {
+    var default_options = {}
+    default_options['axisX'] = "Works"
+    default_options['axisY'] = "Time (sec)"
+    default_options['column'] = 3
+    options = options || default_options;
     var result = {
-      axisX: { title: "Works", labelFontSize: 14, titleFontSize: 20 },
-      axisY: { title: "Time (sec)", labelFontSize: 14, titleFontSize: 20 },
+      axisX: { title: options['axisX'], labelFontSize: 14, titleFontSize: 20 },
+      axisY: { title: options['axisY'], labelFontSize: 14, titleFontSize: 20 },
       zoomEnabled: true,
       data: []
     };
@@ -56,7 +78,7 @@ window.onload = function() {
           type: "line",
           showInLegend: true,
           name: data[key].label,
-          dataPoints: getDataPointsFromCSV(data[key].data, 3)
+          dataPoints: getDataPointsFromCSV(data[key].data, options['column'])
         }
       )
     }
@@ -75,6 +97,16 @@ window.onload = function() {
 
   $.get("/fedora-tests/data/fedora_collections_10000.csv", function(data) {
     render_individual_chart("fedora_collections_10000", data)
+  });
+
+  // Request charts
+
+  $.get("/fedora-tests/data/local_active_fedora_collections_25000_fedora_post.csv", function(data) {
+    render_request_chart("local_active_fedora_collections_25000_fedora_post", data)
+  });
+
+  $.get("/fedora-tests/data/local_active_fedora_collections_25000_fedora_get.csv", function(data) {
+    render_request_chart("local_active_fedora_collections_25000_fedora_get", data)
   });
 
   // Comparison Charts
@@ -146,5 +178,53 @@ window.onload = function() {
     render_individual_chart("fedora_files_1000", fedora[0])
     render_individual_chart("active_fedora_files_1000", af[0])
     render_individual_chart("cho_files_1000", hyrax[0])
+  });
+
+  $.when(
+    $.get("/fedora-tests/data/local_active_fedora_collections_25000_solr_update.csv"),
+    $.get("/fedora-tests/data/local_active_fedora_collections_25000_solr_hyrax_update.csv"),
+    $.get("/fedora-tests/data/local_active_fedora_collections_25000_solr_hyrax_nc_update.csv")
+  ).done(function(psu, hyrax, nc) {
+    var options = {}
+    options['axisX'] = "Requests"
+    options['axisY'] = "Time (ms)"
+    options['column'] = 0
+    var chart = new CanvasJS.Chart(
+      "solrComparison",
+      combined_results([
+        { label: "PSU Default (5.3.1)", data: psu[0] },
+        { label: "Hyrax (7.1.0)", data: hyrax[0] },
+        { label: "Hyrax (no commits)", data: nc[0] }
+      ], options)
+    );
+    chart.render();
+  });
+
+  $.when(
+    $.get("/fedora-tests/data/local_active_fedora_collections_25000.csv"),
+    $.get("/fedora-tests/data/active_fedora_collections_25000.csv")
+  ).done(function(local, server) {
+    var chart = new CanvasJS.Chart(
+      "localCollectionComparison",
+      combined_results([
+        { label: "Laptop", data: local[0] },
+        { label: "Server", data: server[0] }
+      ])
+    );
+    chart.render();
+  });
+
+  $.when(
+    $.get("/fedora-tests/data/local_active_fedora_collections_25000.csv"),
+    $.get("/fedora-tests/data/local_active_fedora_collections_25000_solr_hyrax_nc.csv")
+  ).done(function(local, nc) {
+    var chart = new CanvasJS.Chart(
+      "finalCollectionComparison",
+      combined_results([
+        { label: "With commits", data: local[0] },
+        { label: "Without commits", data: nc[0] }
+      ])
+    );
+    chart.render();
   });
 }
