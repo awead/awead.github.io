@@ -18,18 +18,6 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   left: 20px;
   z-index: 500; }
 
-.mychart {
-  width: 900px;
-  height: 400px;
-
-}
-
-.leading {
-  position: absolute;
-  top: -50px;
-  right: 140px;
-}
-
 /*********************************************
  * GLOBAL STYLES
  *********************************************/

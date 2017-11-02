@@ -183,8 +183,8 @@ window.onload = function() {
   $.when(
     $.get("/fedora-tests/data/local_active_fedora_collections_25000_solr_update.csv"),
     $.get("/fedora-tests/data/local_active_fedora_collections_25000_solr_hyrax_update.csv"),
-    $.get("/fedora-tests/data/local_active_fedora_collections_25000_solr_hyrax_nc_update.csv")
-  ).done(function(psu, hyrax, nc) {
+    $.get("/fedora-tests/data/local_active_fedora_collections_25000_solr_hyrax_ns_update.csv")
+  ).done(function(psu, hyrax, ns) {
     var options = {}
     options['axisX'] = "Requests"
     options['axisY'] = "Time (ms)"
@@ -194,7 +194,7 @@ window.onload = function() {
       combined_results([
         { label: "PSU Default (5.3.1)", data: psu[0] },
         { label: "Hyrax (7.1.0)", data: hyrax[0] },
-        { label: "Hyrax (no commits)", data: nc[0] }
+        { label: "Hyrax (no suggest)", data: ns[0] }
       ], options)
     );
     chart.render();
@@ -216,13 +216,15 @@ window.onload = function() {
 
   $.when(
     $.get("/fedora-tests/data/local_active_fedora_collections_25000.csv"),
-    $.get("/fedora-tests/data/local_active_fedora_collections_25000_solr_hyrax_nc.csv")
-  ).done(function(local, nc) {
+    $.get("/fedora-tests/data/local_active_fedora_collections_25000_solr_hyrax_nc.csv"),
+    $.get("/fedora-tests/data/local_active_fedora_collections_25000_solr_hyrax_ns.csv")
+  ).done(function(local, nc, ns) {
     var chart = new CanvasJS.Chart(
       "finalCollectionComparison",
       combined_results([
         { label: "With commits", data: local[0] },
-        { label: "Without commits", data: nc[0] }
+        { label: "Without commits", data: nc[0] },
+        { label: "Without suggest", data: ns[0] }
       ])
     );
     chart.render();

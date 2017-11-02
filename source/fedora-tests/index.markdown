@@ -233,40 +233,26 @@ With a unique 1MB file for each work, the tests were capped at 1,000 because of 
 
 <div id="fedora_files_1000" style="width:100%; height:400px;"></div>
 
-<!--
-[deploy@choweb1qa current]$ time bundle exec rake fedora_testing:files[100]
-
-real    0m40.033s
-user    0m20.251s
-sys     0m3.151s
-[deploy@choweb1qa current]$ time bundle exec rake fedora_testing:files[1000]
-
-real    5m46.804s
-user    2m29.848s
-sys     0m17.905s -->
+    real    5m46.804s
+    user    2m29.848s
+    sys     0m17.905s
 
 ## Valkyrie with ActiveFedora
 
 <div id="active_fedora_files_1000" style="width:100%; height:400px;"></div>
 
-<!--
-[deploy@choweb1qa current]$ time bundle exec rake active_fedora_testing:files[100]
 
-real    1m0.217s
-user    0m33.636s
-sys     0m2.663s
-[deploy@choweb1qa current]$ bundle exec rake testing_support:clean
-[deploy@choweb1qa current]$ time bundle exec rake active_fedora_testing:files[1000]
-
-real    12m10.749s
-user    5m11.323s
-sys     0m22.615s -->
+    real    12m10.749s
+    user    5m11.323s
+    sys     0m22.615s
 
 ## Hyrax
 
 <div id="cho_files_1000" style="width:100%; height:400px;"></div>
 
-    real 71m26.433s    user 23m32.859s    sys 1m33.824s
+    real 71m26.433s
+    user 23m32.859s
+    sys 1m33.824s
 
 # Comparison of Backends
 
@@ -291,18 +277,21 @@ This compares the total time per each benchmark for all four backends.
 Why does ingest time increase with inversely related collections when using ActiveFedora
 in Valkyrie or Hyrax? When using the Fedora and Postgres adapters in Valkyrie, performance remains flat.
 
-Additional tests were conducted locally on a laptop because servers were no longer available.
+Additional tests were conducted locally on a laptop because servers were no longer available. All tests
+were capped at 25000 works because that was large enough to show a significant decrease in performance.
 
 ### Collection Performance Locally
 
-A collection with 25K items, similar to the collection test performed above, but locally, on
-a laptop.
+Running a test using a laptop yielded similar results to those seen in a multi-server environment.
+There is a significant performance impact in the server environment, apparently due to network
+latency. A laptop performed slightly faster than a server and the variances of time was much smaller.
+However, there is still a clean decrease in performance over time in both environments.
 
 <div id="localCollectionComparison" style="width:100%; height:400px;"></div>
 
 ### Fedora and Solr Requests
 
-If Fedora performance is degrading we might see a similar increase in response times with the
+If Fedora performance is degrading, we might see a similar increase in response times with the
 different HTTP requests sent to it.
 
 #### Fedora POST
@@ -330,12 +319,19 @@ For each new work, there were 5 GET requests:
 
 #### Solr Update
 
-75004 requests: all updates except for one select to find the collection at the beginning.
-
-50002 total Solr documents:
+The ActiveFedora adapter creates two Solr resources (documents) per work: one for the work, and a second for
+the ACL resource in Fedora. The total number of Solr documents came to 50002:
 
 * 25001 Valkyrie::Persistence::ActiveFedora::ORM::Resource (25000 works + 1 collection)
-* 25001 Hydra::AccessControl
+* 25001 Hydra::AccessControl (25000 works + 1 collection)
+
+During the work creation process, Solr makes three updates per collection and work
+resulting in a total of 75003 update requests.
+
+Graphing the response times for each request showed the exact same pattern of performance degradation.
+Different Solr configurations were tested, but the key factor in performance was the `suggest` field. When
+text fields were not copied to the field, as they were with other Solr configurations, response
+times improved dramatically.
 
 <div id="solrComparison" style="width:100%; height:400px;"></div>
 
@@ -344,10 +340,71 @@ For each new work, there were 5 GET requests:
 [comment]: <> Sum up total Fedora requests:
 [comment]: <> grep HTTP active_fedora_collections_1000.log | grep 8986 | awk '{gsub(/\(|\)|m|s/,"",$9)}1' | awk '{sum += $9} END {print sum}'
 
-### Comparing Commits
+We don't know exactly why suggest fields have such an impact on performance. All the other Valkyrie adapters
+used Solr configurations that had suggest fields enabled, but the performance impact was only felt
+when using ActiveFedora.
+
+The common Solr configuration for Hyrax and other Samvera-based applications uses fields with suffixes
+such as `_tesim` and `_ssim` to denote stored, searchable text in Solr. Additionally, a `suggest` suffix
+is used for fields that Blacklight can use to provide a type of "Did you mean..." search refinement to
+users.
+
+``` xml
+<dynamicField name="*_tesim" type="text_en" stored="true" indexed="true" multiValued="true"/>
+<dynamicField name="*_ssim" type="string" stored="true" indexed="true" multiValued="true"/>
+
+<dynamicField name="*suggest" type="textSuggest" indexed="true" stored="false" multiValued="true" />
+```
+
+All text fields' content is copied directly to a suggest field:
+
+``` xml
+<copyField source="*_tesim" dest="suggest"/>
+<copyField source="*_ssim" dest="suggest"/>
+```
+
+The difference in configuration between the fields centers around `_tesim` versus `suggest` fields and
+their tokenizers and filters. We would need to do more testing to verify this, but it could be that
+the performance impact is related to the KeywordTokenizerFactory in the suggest field and the
+ICUTokenizerFactory in the tesim field.
+
+``` xml
+<fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+
+<fieldType name="text_en" class="solr.TextField" positionIncrementGap="100">
+  <analyzer>
+    <tokenizer class="solr.ICUTokenizerFactory"/>
+    <filter class="solr.ICUFoldingFilterFactory"/>
+    <filter class="solr.EnglishPossessiveFilterFactory"/>
+    <filter class="solr.EnglishMinimalStemFilterFactory"/>
+    <filter class="solr.TrimFilterFactory"/>
+  </analyzer>
+
+  <fieldType class="solr.TextField" name="textSuggest" positionIncrementGap="100">
+    <analyzer>
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+      <filter class="solr.StandardFilterFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    </analyzer>
+  </fieldType>
+</fieldType>
+```
+
+### Final Comparison
+
+When comparing the process of creating 25000 works in a collection, the Solr configuration plays the
+critical role in performance.
+
+One of the other dimensions of comparison that was used early on in the testing process was removing
+all the commits made to Solr. This showed the same performance boost as with suggest fields. However,
+since removing suggest fields, and retaining commits, demonstrated substantial performance increases,
+it's pretty clear that while removing commits may give a slight increase over commits without suggest
+fields, the principle performance gain is found in removing the tesim to suggest field copying.
 
 <div id="finalCollectionComparison" style="width:100%; height:400px;"></div>
 
 [comment]: <>  With PSU's 5.3 solr: 2055.80s user 105.75s system 5% cpu 11:23:40.56 total
 [comment]: <>  With Hyrax 7.1.0 solr configuration: 2060.68s user 109.87s system 5% cpu 11:17:56.82 total
-[comment]: <>  solr with no commits: 1993.54s user 102.99s system 59% cpu 59:07.53 total
+[comment]: <>  Hyrax solr with no commits: 1993.54s user 102.99s system 59% cpu 59:07.53 total
+[comment]: <>  Hyrax solr with no auto-suggest: 2190.22s user 113.81s system 55% cpu 1:09:11.23 total
