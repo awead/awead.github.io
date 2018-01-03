@@ -7,7 +7,10 @@ categories:
 ---
 
 A colleague of mine once referred to commit messages as "love letters to our future selves."
-He couldn't have been more right.
+
+He later told me that it's actually from _Perl Best Practices_ by Damion Conway.
+
+Either of them couldn't have been more right.
 
 In this past year, I've been actively writing more descriptive commit messages, and
 I've found that it really pays off. As you work on more and more different projects and
