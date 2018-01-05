@@ -1,0 +1,87 @@
+---
+layout: post
+title: "Strictly by the ABCs"
+date: 2018-01-05 11:55
+comments: true
+categories:
+---
+
+Metrics can be great tools to measure things, but like any tool, there's the right one for the job. Not only
+do you need to know which one to use, you also have to wield it correctly; otherwise, you'll do more
+harm than good.
+
+Recently, I got into a discussion with a colleague of mine during a pull request review. We were
+discussing the merits of readability and conciseness over a particular method. The crux of
+the matter was intermediate variables versus method chaining. The pull request offered a method that
+used intermediate variables and looked something like:
+
+``` ruby
+def intermediate_variables(input)
+  result_a = input.map { |x| step_a(x) }
+  result_b = result_a.map { |y| step_b(y) }
+  result_b.uniq
+end
+```
+
+``` ruby
+def method_chaining(input)
+  input.map { |x| step_a(x) }.map { |y| step_b(y) }.uniq
+end
+```
+
+I was arguing for the one-liner because it was more concise, and my colleague was in favor of the
+former approach, arguing that it was more readable. I also assumed that because the intermediate
+approach had more assignments, its ABC score would be higher. Having some metrics to back me up, I thought, would
+bolster my argument. Well, as it turns out, the metrics were not in my favor:
+
+``` bash
+$ flog intermediate.rb
+     5.9: flog total
+     5.9: flog/method average
+
+     5.9: main#intermediate_variables      flog.rb:1-4
+
+$ flog method_chain.rb
+     6.9: flog total
+     6.9: flog/method average
+
+     6.9: main#method_chaining             method_chain.rb:1-2
+```
+
+Even if we take this to absurd proportions, the method chain approach will always score higher:
+
+``` ruby
+def intermediate_variables(input)
+  result_a = method_a(input)
+  result_b = result_a.method_b
+  result_c = result_b.method_c
+  result_d = result_c.method_d
+  result_e = result_d.method_e
+  result_f = result_e.method_f
+  result_f.method_g
+end
+```
+
+``` ruby
+def method_chaining(input)
+  method_a(input).method_b.method_c.method_d.method_e.method_f.method_g
+end
+```
+
+``` bash
+$ flog intermediate.rb
+     9.2: flog total
+     9.2: flog/method average
+
+     9.2: main#intermediate_variables      intermediate.rb:1-8
+$ flog method_chain.rb
+    11.2: flog total
+    11.2: flog/method average
+
+    11.2: main#method_chaining             method_chain.rb:1-2
+```
+
+I found this surprising. In the end, we opted for the intermediate approach not because of the flog score
+but because the actual example used `map` and other methods that did make it confusing to read. The intermediate
+variables do help improve readability, and as it turns out, lower the flog score too.
+
