@@ -229,4 +229,22 @@ window.onload = function() {
     );
     chart.render();
   });
+
+  $.when(
+    $.get("/fedora-tests/data/postgres_collections_solr_hyrax_ns_100000.csv"),
+    $.get("/fedora-tests/data/fedora_collections_solr_hyrax_ns_100000.csv"),
+    $.get("/fedora-tests/data/active_fedora_collections_solr_hyrax_ns_100000.csv"),
+    $.get("/fedora-tests/data/cho_collections_solr_hyrax_ns_100000.csv")
+  ).done(function(postgres, fedora, af, hyrax) {
+    var chart = new CanvasJS.Chart(
+      "updatedCollectionComparison",
+      combined_results([
+        { label: "Postgres", data: postgres[0] },
+        { label: "Fedora", data: fedora[0] },
+        { label: "ActiveFedora", data: af[0] },
+        { label: "Hyrax", data: hyrax[0] }
+      ])
+    );
+    chart.render();
+  });
 }

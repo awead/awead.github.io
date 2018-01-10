@@ -408,3 +408,43 @@ fields, the principle performance gain is found in removing the tesim to suggest
 [comment]: <>  With Hyrax 7.1.0 solr configuration: 2060.68s user 109.87s system 5% cpu 11:17:56.82 total
 [comment]: <>  Hyrax solr with no commits: 1993.54s user 102.99s system 59% cpu 59:07.53 total
 [comment]: <>  Hyrax solr with no auto-suggest: 2190.22s user 113.81s system 55% cpu 1:09:11.23 total
+
+## Collections with Updated Solr Configuration
+
+Since the Solr configuration created a performance hit, all the collection tests could
+benefit from an updated Solr that does not use the auto-suggest field.
+
+Rerunning the original 100K test for all four of the backends, and using Hyrax's updated solr
+configuration, yields the following results.
+
+<div id="updatedCollectionComparison" style="width:100%; height:400px;"></div>
+
+### Hyrax
+
+The test was terminated after 59 hours. It reached 63796 objects. No disk usage information was gathered.
+
+    20666.27s user 1669.31s system 10% cpu 59:06:22.39 total
+
+### ActiveFedora
+
+Using the ActiveFedora adapted with Valkyrie took 23 hours. It is also worth noting that even
+though this was a metadata-only test, it used 172 GB of disk. We're assuming this was largely in the
+Fedora repository.
+
+    8584.52s user 449.45s system 10% cpu 23:05:01.55 total
+
+### Fedora
+
+Using the Fedora adapter with Valkyrie took 13 hours and used 167 GB of disk. Again, assuming this was
+largely all Fedora data.
+
+    1345.51s user 107.13s system 3% cpu 13:08:38.49 total
+
+### Postgres
+
+Using the Postgres adapter with Valkyrie took 7 minutes, 23 seconds and used no describable disk space.
+
+    357.16s user 13.31s system 83% cpu 7:23.43 total
+
+
+
