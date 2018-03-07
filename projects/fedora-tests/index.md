@@ -9,6 +9,7 @@ permalink: /fedora-tests
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script type="text/javascript" src="/projects/fedora-tests/chart.js"></script>
+<script type="text/javascript" src="/projects/fedora-tests/fedora-chart.js"></script>
 
 # Overview
 

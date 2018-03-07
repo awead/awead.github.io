@@ -10,3 +10,8 @@ main: true
 with Valkyrie's different adapters and Hyrax. The results here were the basis for
 [Performance Metrics with Valkyrie and Hyrax](/presentations/fedora-tests) which I gave a SamervaConnect
 in 2017.
+
+### CHO
+
+[CHO Benchmark Tests](/cho-benchmarks) shows performance benchmarks for Penn State's CHO project, which
+uses Valkyrie with Postgres and Solr.
