@@ -16,5 +16,5 @@ permalink: /cho-benchmarks
 Sample collection with 1 million unordered works. This is a metadata-only collection, with no files and
 only titles. It took approximately 2.5 hours to complete the test.
 
-<div id="cho_collections_1000000" style="width:100%; height:400px;"></div>
+<div id="collectionComparison" style="width:100%; height:400px;"></div>
 
