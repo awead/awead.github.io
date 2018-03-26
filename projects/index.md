@@ -15,3 +15,8 @@ in 2017.
 
 [CHO Benchmark Tests](/cho-benchmarks) shows performance benchmarks for Penn State's CHO project, which
 uses Valkyrie with Postgres and Solr.
+
+### Lake Superior
+
+[Performance Comparison with Lake Superior](/lake-superior) shows differences between
+alternative Fedora API implementations such as Lake Superior.
