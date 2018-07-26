@@ -3,7 +3,7 @@ layout: post
 title: "Using Rbenv in Production"
 date: 2013-07-04 17:20
 comments: true
-categories: 
+categories:
 ---
 
 In the last post, I went over the procedures I used to install the Ruby environment manager,
@@ -25,7 +25,7 @@ You'll need development packages (gcc, etc.) and git.  Easiest way to do that is
 
     $ yum groupinstall "Development Tools"
 
-I installed git via yum as well, but by adding the 
+I installed git via yum as well, but by adding the
 [Extra Packages for Enterprise Linux (EPEL)](http://fedoraproject.org/wiki/EPEL) repository:
 
     $ rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
@@ -53,12 +53,16 @@ Other than the location, the installation is pretty much the same as it was in d
     $ git clone https://github.com/sstephenson/rbenv-vars
 
 Because I want rbenv available globally, I add a new file under /etc/profile.d so new environment settings will be
-applied equally to every user:
+applied equally to every user.
 
-``` ruby /etc/profile.d/rbenv.sh
+In `/etc/profile.d/rbenv.sh`
+
+```bash
+
 export RBENV_ROOT=/usr/local/rbenv
 export PATH="$RBENV_ROOT/bin:$PATH"
 eval "$(rbenv init -)"
+
 ```
 
 After logging out and back in again, or re-sourcing .bash_profile, Rbenv should now be installed and correctly pathed:
@@ -94,19 +98,21 @@ The last little bit involves configuring Passenger.  Installing the apache modul
 
     $ passenger-install-apache2-module
 
-But when I configure my rails apps for deployment, I have apache set the GEM_HOME variable so Passenger knows to 
-look under the .bundle directoryfor the additional gems.  This can be done so that it's set for any application you deploy:
+But when I configure my rails apps for deployment, I have apache set the GEM_HOME variable so Passenger knows to
+look under the .bundle directoryfor the additional gems.  This can be done so that it's set for any application you deploy.
 
-``` ruby /etc/httpd/conf.d/passenger.conf
+In `/etc/httpd/conf.d/passenger.conf`
+
+```
     <VirtualHost *:80>
       ServerName my.prod.server
       SetEnv GEM_HOME .bundle
-    
+
       RackBaseURI /app1
       <Directory /var/www/html/app1>
         Options -MultiViews
       </Directory>
-    
+
       RackBaseURI /app2
       <Directory /var/www/html/app2>
         Options -MultiViews
