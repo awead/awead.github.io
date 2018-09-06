@@ -3,7 +3,7 @@ layout: post
 title: "A Passenger in a Passenger"
 date: 2014-03-05 16:35
 comments: true
-categories: 
+categories:
 ---
 
 Here's something I didn't know you could do, until today...
@@ -20,24 +20,24 @@ Passenger alone.
 
 The key is, I deploy the beta site within the public folder of the main site.  Here's what the Passenger config looks like:
 
-``` bash /etc/httpd/conf.d/foo.conf
+``` bash
     <VirtualHost *:80>
-      
+
       ServerName foo.com
       SetEnv GEM_HOME .bundle
       DocumentRoot /var/www/rails/foo/public
-      
+
       <Directory /var/www/rails/foo/public>
         AllowOverride all
         Options -MultiViews
       </Directory>
-      
+
       RailsBaseURI /beta
       <Directory /var/www/rails/foo/public/beta>
         AllowOverride all
         Options -MultiViews
       </Directory>
-      
+
     </VirtualHost>
 ```
 
@@ -60,5 +60,5 @@ repo inside the current public folder and Passenger will serve out the new site 
     [run your normal install procedures]
     cd /var/www/rails/foo/public
     ln -s /var/www/rails/beta/foo/public beta
-    
-And that's it.  It's a bit convoluted, but it got my out of my position where I was stuck with only one server name and no sub-uris.  
+
+And that's it.  It's a bit convoluted, but it got my out of my position where I was stuck with only one server name and no sub-uris.

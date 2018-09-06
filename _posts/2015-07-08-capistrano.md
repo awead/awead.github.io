@@ -3,13 +3,13 @@ layout: post
 title: "Capistrano"
 date: 2015-07-08 09:08
 comments: true
-categories: 
+categories:
 ---
 
-I've been working recently on a side project with a very restrictive server environment. Capistrano has turned out to be a 
+I've been working recently on a side project with a very restrictive server environment. Capistrano has turned out to be a
 good way to deploy news apps easily and quickly. Admittedly, I have a bit of a love/hate relationship with Cap. I use it
 at work, and it's wonderful when it works... until it doesn't, and then it becomes very frustrating. Part of this was
-was due to the fact that it was setup before I came on to my current job, so I didn't see it getting built from the 
+was due to the fact that it was setup before I came on to my current job, so I didn't see it getting built from the
 ground up. So I figured with this side project I could set it up myself and see better how it works.
 
 I find that Capistrano adheres to Rails' adage of "convention over configuration," which is otherwise known as: magic.
@@ -40,10 +40,10 @@ If the server you've defined in the `config/deploy` directory isn't assigned to 
 won't occur -- which makes complete sense of course, but it's not immediately obvious. Similarly, you need to assign
 your server either the app or web role for assets as well.
 
-``` ruby config/deploy/test.rb
+``` ruby
 
     server 'test.server.com', user: 'awead', roles: %w{web app db}
-  
+
 ```
 
 With the new configuration, everything went as expected.

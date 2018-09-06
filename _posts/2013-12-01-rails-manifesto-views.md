@@ -3,11 +3,11 @@ layout: post
 title: "Rails Manifesto: Views"
 date: 2013-12-01 10:42
 comments: true
-categories: 
+categories:
 ---
 
 I've been developing with Ruby on Rails for about three years now, and while that's not as long as some other folks, it's
-long enough for me to have formulated some of my own personal programming maxims.  One of these is about views.  This past week, 
+long enough for me to have formulated some of my own personal programming maxims.  One of these is about views.  This past week,
 I was rewriting view code in order to completely remove all Ruby logic so that it was solely HTML code as much as possible.
 While you're allowed to do lots of things in Rails views, I prefer to keep views what they're supposed to be: just about display.
 To that end, I use lots of helper methods to handle the logic, and leave the view code as simple nested HTML blocks.
@@ -15,21 +15,21 @@ To that end, I use lots of helper methods to handle the logic, and leave the vie
 ### Views view, while Helpers help
 
 Rails views allow you to insert any Ruby code you like directly into escaped HTML strings, so you can have elements
-of if/then logic mixed in with HTML all in the same page.  Take, for example, this view code from the 
+of if/then logic mixed in with HTML all in the same page.  Take, for example, this view code from the
 [Blacklight plugin](https://github.com/projectblacklight/blacklight) that displays a list of recent searches:
 
-``` ruby index.html.erb
+``` ruby
 <div id="content" class="span9">
 <h1><%= t('blacklight.saved_searches.title') %></h1>
 
 <%- if current_or_guest_user.blank? -%>
-  
+
   <h2><%= t('blacklight.saved_searches.need_login') %></h2>
-  
+
 <%- elsif @searches.blank? -%>
-  
+
   <h2><%= t('blacklight.saved_searches.no_searches') %></h2>
-  
+
 <%- else -%>
   <p>
   <%= link_to t('blacklight.saved_searches.clear.action_title'), clear_saved_searches_path, :method => :delete, :data => { :confirm => t('blacklight.saved_searches.clear.action_confirm') } %>
@@ -63,7 +63,7 @@ more sense to me at first glance.  To do this, I identified the primary function
 search results.  I  then separated the logic controlling that and gave it a method name defining it as clearly as
 possible:
 
-``` ruby searches_helper.rb
+``` ruby
 module SearchesHelper
 
   def render_saved_searches_table
@@ -82,12 +82,12 @@ end
 With the logic sketched, we can add back some of the view code where appropriate.  In this case, the helper method can
 return a single HTML statement, but if it is more than that, the content should be rendered by a new partial:
 
-``` ruby searches_helper.rb
+``` ruby
 module SearchesHelper
 
   def render_saved_searches_table
     if current_or_guest_user.blank?
-      content_tag :h2, t('blacklight.saved_searches.need_login') 
+      content_tag :h2, t('blacklight.saved_searches.need_login')
     elsif @searches.blank?
       content_tag :h2, t('blacklight.saved_searches.no_searches')
     else
@@ -100,16 +100,16 @@ end
 
 The index view is now much more concise and can be re-written to take advantage of Rails' content_tag blocks:
 
-``` ruby index.html.erb
+``` ruby
 <%= content_tag :div, :id => "saved_searches", :class => "span9" do %>
   <%= content_tag :h1, t('blacklight.saved_searches.title') %>
-  <%= render_saved_searches_table %> 
+  <%= render_saved_searches_table %>
 <% end %>
 ```
 
 Now, we create a new partial called by the helper method to display the searches in a table format:
 
-``` ruby _searches_table.html.erb
+``` ruby
 <%= content_tag :p, link_to(t('blacklight.saved_searches.clear.action_title'), clear_saved_searches_path, :method => :delete, :data => { :confirm => t('blacklight.saved_searches.clear.action_confirm') }) %>
 
 <%= content_tag :h2, t('blacklight.saved_searches.list_title') %>
@@ -124,20 +124,20 @@ Now, we create a new partial called by the helper method to display the searches
 <% end %>
 ```
 
-Personally, I find the first line a bit too long.  There are a lot of options that are passed to the link_to method, and I chose to 
+Personally, I find the first line a bit too long.  There are a lot of options that are passed to the link_to method, and I chose to
 isolate that using a helper method:
 
-``` ruby searches_helper.rb
+``` ruby
   def render_clear_searches_link
-    link_to t('blacklight.saved_searches.clear.action_title'), 
-      clear_saved_searches_path, :method => :delete, 
-      :data => { :confirm => t('blacklight.saved_searches.clear.action_confirm') } 
+    link_to t('blacklight.saved_searches.clear.action_title'),
+      clear_saved_searches_path, :method => :delete,
+      :data => { :confirm => t('blacklight.saved_searches.clear.action_confirm') }
   end
 ```
 
 Then, the final view code for the table looks a little more manageable to me:
 
-``` ruby _searches_table.html.erb
+``` ruby
 <%= content_tag :p, render_clear_searches_link %>
 
 <%= content_tag :h2, t('blacklight.saved_searches.list_title') %>

@@ -24,7 +24,7 @@ that explains what you did that you can't remember now.
 As a guideline, I also include a gitmessage that took from Thoughtbot that reminds me what I'm
 supposed to be writing:
 
-``` bash ~/.gitmessage
+``` bash
 # 50-character subject line
 #
 # 72-character wrapped longer description. This should answer:
@@ -39,7 +39,7 @@ supposed to be writing:
 And if vim is your editor, make your messages automatically wrap at 72 characters. You'll be
 much happier.
 
-``` bash ~/.vimrc
+``` bash
 :set textwidth=72
 au BufRead,BufNewFile setlocal textwidth=72
 ```

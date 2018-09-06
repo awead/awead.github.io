@@ -237,6 +237,7 @@ DEPENDENCIES
   jekyll-feed (~> 0.6)
   jekyll-sitemap
   minima (~> 2.0)
+  rouge
 
 BUNDLED WITH
-   1.16.1
+   1.16.3
