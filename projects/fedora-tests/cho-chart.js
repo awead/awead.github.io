@@ -10,15 +10,17 @@ window.onload = function() {
     $.get("/projects/fedora-tests/data/cho_metrics_work_100_mvp1.csv"),
     $.get("/projects/fedora-tests/data/cho_metrics_work_100_mvp2.csv"),
     $.get("/projects/fedora-tests/data/cho_metrics_work_100_mvp3.csv"),
-    $.get("/projects/fedora-tests/data/cho_metrics_work_100_mvp4.csv")
-  ).done(function(mvp1, mvp2, mvp3, mvp4) {
+    $.get("/projects/fedora-tests/data/cho_metrics_work_100_mvp4.csv"),
+    $.get("/projects/fedora-tests/data/cho_metrics_work_100_mvp5.csv"),
+  ).done(function(mvp1, mvp2, mvp3, mvp4, mvp5) {
     var chart = new CanvasJS.Chart(
       "workComparison",
       combined_results([
         { label: "CHO 0.1", data: mvp1[0] },
         { label: "CHO 0.2", data: mvp2[0] },
         { label: "CHO 0.3", data: mvp3[0] },
-        { label: "CHO 0.4", data: mvp4[0] }
+        { label: "CHO 0.4", data: mvp4[0] },
+        { label: "CHO 0.5", data: mvp5[0] },
       ])
     );
     chart.render();
@@ -29,8 +31,9 @@ window.onload = function() {
     $.get("/projects/fedora-tests/data/cho_metrics_collection_100000_mvp1.csv"),
     $.get("/projects/fedora-tests/data/cho_metrics_collection_100000_mvp2.csv"),
     $.get("/projects/fedora-tests/data/cho_metrics_collection_100000_mvp3.csv"),
-    $.get("/projects/fedora-tests/data/cho_metrics_collection_100000_mvp4.csv")
-  ).done(function(valkyrie, mvp1, mvp2, mvp3, mvp4) {
+    $.get("/projects/fedora-tests/data/cho_metrics_collection_100000_mvp4.csv"),
+    $.get("/projects/fedora-tests/data/cho_metrics_collection_100000_mvp5.csv"),
+  ).done(function(valkyrie, mvp1, mvp2, mvp3, mvp4, mvp5) {
     var mvpChart = new CanvasJS.Chart(
       "choMVPComparison",
       combined_results([
@@ -38,6 +41,7 @@ window.onload = function() {
         { label: "CHO 0.2", data: mvp2[0] },
         { label: "CHO 0.3", data: mvp3[0] },
         { label: "CHO 0.4", data: mvp4[0] },
+        { label: "CHO 0.5", data: mvp5[0] },
       ])
     );
     mvpChart.render();
@@ -46,7 +50,7 @@ window.onload = function() {
       "choCurrentComparison",
       combined_results([
         { label: "Valkyrie", data: valkyrie[0] },
-        { label: "CHO 0.4", data: mvp4[0] },
+        { label: "CHO 0.5", data: mvp5[0] },
       ])
     );
     currentChart.render();

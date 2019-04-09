@@ -24,6 +24,7 @@ content. The metadata is randomly generated and does differ between each work.
 | 0.2         | 50079.7         |
 | 0.3         | 50037.7         |
 | 0.4         | 8182.1          |
+| 0.5         | 30060.3         |
 
 Network issues with Solr likely played a role in the differences between timings in release 0.1 - 0.3
 versus 0.4.
@@ -51,6 +52,7 @@ random file to the work.
 | 0.2         | 140.7           |
 | 0.3         | 153.8           |
 | 0.4         | 285.3           |
+| 0.5         | 196.6           |
 
 ### Comparing Each Release
 
