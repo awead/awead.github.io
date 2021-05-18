@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "resume-cli": "^3.0.4",
+    "yarn": "^1.22.10"
+  }
+}

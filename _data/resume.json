@@ -1,0 +1,494 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Adam Wead",
+    "label": "Developer",
+    "image": "",
+    "email": "amsterdamos@gmail.com",
+    "url": "http://awead.github.io/",
+    "summary": "Librarian and software developer with over 20 year's experience in libraries, archives, and museums",
+    "location": {
+      "countryCode": "US",
+      "region": "Ohio"
+    },
+    "profiles": [
+      {
+        "network": "Github",
+        "username": "awead",
+        "url": "https://github.com/awead"
+      },
+      {
+        "network": "Twitter",
+        "username": "amsterdamos",
+        "url": "https://twitter.com/amsterdamos"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "awead",
+        "url": "https://www.linkedin.com/in/awead/"
+      },
+      {
+        "network": "Keybase",
+        "username": "awead",
+        "url": "https://keybase.io/awead"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Penn State University",
+      "location": "State College, PA",
+      "position": "Systems Analyst",
+      "website": "",
+      "startDate": "2014-04-01",
+      "highlights": [
+        "redesigned Penn State's Scholarsphere repository application using S3, Kubernetes, and modern Rails components",
+        "focused on microservice-oriented architectures that are API-centered with industry-standard technologies", 
+        "technical lead for <a href=\"https://github.com/psu-libraries/cho\" target=\"_blank\">CHO</a>, a customized ContentDM replacement using Rails with Valkyrie & Fedora",
+        "migrated repository content from Fedora, version 3, to version 4, and later to Postgres"
+      ]
+    },
+    {
+      "name": "The Art Institute of Chicago",
+      "location": "Chicago, IL",
+      "position": "Consultant",
+      "startDate": "2015-06-01",
+      "endDate": "2019-10-01",
+      "__summary": "New collections asset manager using Sufia",
+      "highlights": [
+        "built <a href=\"https://github.com/aic-collections/aicdams-lakeshore\" target=\"_blank\">Lakeshore</a>, a collections management system for the museum's artworks using Samvera and Fedora tech stacks"
+      ]
+    },
+    {
+      "name": "The Rock and Roll Hall of Fame and Museum",
+      "location": "Cleveland, OH",
+      "position": "Systems and Digital Collections Librarian",
+      "website": "",
+      "startDate": "2010-01-01",
+      "endDate": "2014-03-31",
+      "__summary": "Worked for the newly opened Library and Archives.",
+      "highlights": [
+        "catalog.rockhall.com, a Blacklight-based catalog for discovery of MARC, EAD and digital content",
+        "built a custom digital asset management system using Hydra and added the Museum as a partner to foster greater community development of the application's framework",
+        "high-availability virtualization environment with redundant SAN and hierarchical storage systems for long-term digital preservation",
+        "cataloging with Millennium and Archivist's Toolkit, integrating with information discovery applications such as OCLC and OhioLink",
+        "consultant with donors such as Austin City Limits on digitizing resources for preservation"
+      ]
+    },
+    {
+      "name": "Indiana University",
+      "location": "Bloomington, IN",
+      "position": "Consultant",
+      "website": "",
+      "startDate": "2009-12-01",
+      "endDate": "2011-01-31",
+      "__summary": "Consulted on continuing projects for the Recording Arts department at the Jacobs School of Music.",
+      "highlights":
+      [
+        "custom script applications to archive and manage born-digital audio and video recordings with automated MARC cataloging, down-conversion of audio for ingestion into the Variations online listening system, and offsite archival storage using HPSS storage technologies"
+      ]
+    },
+    {
+      "name": "Indiana University",
+      "location": "Bloomington, IN",
+      "position": "Systems Administrator",
+      "website": "",
+      "startDate": "2006-09-01",
+      "endDate": "2009-12-31",
+      "__summary": "Maintained servers and Mac clients for the faculty and staff at the Jacobs School of Music",
+      "highlights":
+      [
+        "mission-critical services for the School's primary website and 20 additional servers using Xen with iSCSI-based SAN",
+        "video streaming system for broadcasting the School's performances worldwide",
+        "digital archiving of the Music School's 700+ concert recordings",
+        "network support, DNS maintenance, troubleshooting, monitoring, and disaster recovery backups"
+      ]
+    },
+    {
+      "name": "Indiana University",
+      "location": "Bloomington, IN",
+      "position": "Computer Manager",
+      "website": "",
+      "startDate": "2004-09-01",
+      "endDate": "2009-12-31",
+      "__summary": "Maintained a variety of desktop machines for the staff of the Cook Music Library",
+      "highlights":
+      [
+        "over 300 PC and Macintosh computers in labs, OPAC stations, and faculty and staff offices with customized deployment software using Open Directory services",
+        "workflows for the library's digitization lab using Jira and automated MARC record creation from audio header data",
+        "industry-standard digital audio, MIDI and music notation applications, and professional audio digitization support for the creation of digital materials for Indiana University's Variations project"
+      ]
+    },
+    {
+      "name": "Indiana University",
+      "location": "Bloomington, IN",
+      "position": "Systems Analyst and Programmer",
+      "website": "",
+      "startDate": "2003-10-01",
+      "endDate": "2004-12-31",
+      "__summary": "Provided technical reporting support for the staff at Financial Management Services",
+      "highlights":
+      [
+        "financial reports using SQL and SQR for Peoplesoft, and other financial applications written in PHP, and Perl with Sybase"
+      ]
+    },
+    {
+      "name": "Indiana University",
+      "location": "Bloomington, IN",
+      "position": "Office Manager and Acquisitions Assistant",
+      "website": "",
+      "startDate": "2001-10-01",
+      "endDate": "2003-10-31",
+      "__summary": "Served as assistant to both the Head and Acquisitions Librarian at the Cook Music Library.",
+      "highlights":
+      [
+        "received orders of new materials to the library and provided copy-level cataloging (approximately 100 items per week)",
+        "maintained student employment records and budget spreadsheets"
+      ]
+    },
+    {
+      "name": "Indiana University",
+      "location": "Bloomington, IN",
+      "position": "Circulation Supervisor",
+      "website": "",
+      "startDate": "2000-11-01",
+      "endDate": "2001-10-31",
+      "__summary": "Evening supervisor at the Cook Music Library.",
+      "highlights":
+      [
+        "evening circulation supervisor with a staff of 5 student workers",
+        "responsible for training and hiring, and all facets of the library's circulation operations after-hours"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Indiana University",
+      "area": "Music",
+      "studyType": "Doctorate of Musical Arts",
+      "startDate": "2001-09-01",
+      "endDate": "2014-05-01"
+    },
+    {
+      "institution": "Indiana University",
+      "area": "Information Science",
+      "studyType": "Master of Information Science",
+      "startDate": "2003-09-01",
+      "endDate": "2005-05-01"
+    },
+    {
+      "institution": "Johns Hopkins University",
+      "area": "Music",
+      "studyType": "Master of Music",
+      "startDate": "1997-09-01",
+      "endDate": "2000-05-01"
+    },
+    {
+      "institution": "Vanderbilt University",
+      "area": "Music",
+      "studyType": "Bachelor of Music",
+      "startDate": "1992-09-01",
+      "endDate": "1997-05-01",
+      "honors": "magna cum laude"
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native speaker"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Scholarsphere",
+      "description": "Penn State's institutional repository supporting Open Access initiatives",
+      "highlights": [
+        "migrated from Fedora 4 to Postgres with S3 storage and Solr search via Blacklight",
+        "deployed using Kubernetes, with Docker-based microservices performing file ingest, analysis, processing",
+        "API ingest with Graphql endpoint"
+      ],
+      "url": "https://scholarsphere.psu.edu/",
+      "repository": "https://github.com/psu-libraries/scholarsphere",
+      "type": "repository"
+    },
+    {
+      "name": "catalog.rockhall.com",
+      "description": "Library catalog for the Rock 'n Roll Hall of Fame Library and Archives",
+      "highlights": [
+        "blended MARC, EAD, and exported digital content from Hydra into a Blacklight application",
+        "item-level search and retrieval of archival content, and authenticated access to digitized content",
+        "currently not actively developed, but used for EAD searching and presentation only"
+      ],
+      "url": "http://catalog.rockhall.com/",
+      "repository": "https://github.com/awead/catalog",
+      "type": "repository"
+    },
+    {
+      "name": "Penn State Libraries Catalog",
+      "description": "New public library catalog for Penn State University Libraries",
+      "highlights": [
+        "moved search session storage to Redis for improved performance and easier maintenance",
+        "developing forthcoming call number browse features",
+        "acclimated new developers to Blacklight, Solr, and Rails practices"
+      ],
+      "url": "https://catalog.libraries.psu.edu/",
+      "repository": "https://github.com/psu-libraries/psulib_blacklight",
+      "type": "repository"
+    },
+    {
+      "name": "Build a Rails App with Valkyrie",
+      "description": "A guided walkthrough building a new Rails app with a book and page model, using Valkyrie as a backend",
+      "highlights": [],
+      "keywords": [],
+      "startDate": "2019-10-22",
+      "endDate": "2019-10-22",
+      "url": "https://sc2019.sched.com/event/R67f/build-a-rails-app-with-valkyrie",
+      "roles": ["instructor"],
+      "entity": "Samvera Connect",
+      "type": "Workshop"
+    },
+    {
+      "name": "The Universal Viewer for Penn State's New Cultural Heritage Repository",
+      "description": "How we are planning to use the IIIF universal viewer in our forthcoming ContentDM replacement application, CHO.",
+      "highlights": [],
+      "keywords": [],
+      "startDate": "2018-05-23",
+      "endDate": "2018-05-23",
+      "url": "http://iiif.io/event/2018/washington/program/paper-31/",
+      "roles": ["speaker"],
+      "entity": "IIIF Conference",
+      "type": "Conference lightning talk"
+    },
+    {
+      "name": "Intro to RSpec",
+      "description": "Workshop covering using RSpec for testing of Samvera-based applications.",
+      "highlights": [],
+      "keywords": [],
+      "startDate": "2017-11-06",
+      "endDate": "2017-11-06",
+      "roles": ["instructor"],
+      "entity": "Samvera Connect",
+      "type": "Workshop"
+    },
+    {
+      "name": "Performance Metrics with Hyrax and Valkyrie",
+      "description": "Assessing performance issues with Hyrax and Valkyrie",
+      "highlights": [],
+      "keywords": [],
+      "startDate": "2017-11-08",
+      "endDate": "2017-11-08",
+      "url": "http://awead.github.io/presentations/fedora-tests",
+      "roles": ["presenter"],
+      "entity": "Samvera Connect",
+      "type": "Presentation"
+    },
+    {
+      "name": "What should we be testing? Features, Views, Models, Controllers?",
+      "description": "Panel discussion on how to choose what we test in our applications.",
+      "highlights": [],
+      "keywords": [],
+      "startDate": "2017-11-08",
+      "endDate": "2017-11-08",
+      "roles": ["presenter"],
+      "entity": "Samvera Connect",
+      "type": "Panel",
+      "highlight": "false"
+    },
+    {
+      "name": "Advanced Hydra Camp",
+      "description": "Four-day workshop covering advanced uses of Hyrax applications.",
+      "startDate": "2017-05-08",
+      "endDate": "2017-05-11",
+      "roles": ["instructor"],
+      "entity": "Data Curation Experts",
+      "type": "Workshop"
+    },
+    {
+      "name": "Digital Asset Management For Museums With Hydra-In-A-Box",
+      "description": "Using Hydra applications for digital asset management in museums.",
+      "startDate": "2017-04-19",
+      "endDate": "2017-04-19",
+      "roles": ["assistant"],
+      "entity": "Museums and the Web",
+      "type": "Workshop",
+      "url": "https://mw17.mwconf.org/proposal/digital-asset-management-for-museums-with-hydra-in-a-box/"
+    },
+    {
+      "name": "When We All Fall Down",
+      "description": "Can we use metrics to identify and prevent future failures?",
+      "highlights": [],
+      "keywords": [],
+      "startDate": "2017-03-27",
+      "endDate": "2017-03-31",
+      "roles": ["speaker"],
+      "entity": "LibDevConX",
+      "type": "Conference lightning talk",
+      "highlight": "false"
+    },
+    {
+      "name": "Fedora 3 to Fedora 4 migration",
+      "description": "Panel featuring representatives from multiple institutions that either are planning for, are in the midst of, migrating to Fedora 4",
+      "startDate": "2016-10-03",
+      "endDate": "2016-10-06",
+      "roles": ["panelist"],
+      "entity": "Hydra Connect",
+      "highlight": "false",
+      "type": "Panel"
+    },
+    {
+      "name": "Testing with RSpec and Hydra",
+      "description": "Workshop on techniques and strategies when testing Hydra apps with RSpec.",
+      "startDate": "2016-10-03",
+      "endDate": "2016-10-06",
+      "roles": ["instructor"],
+      "entity": "Hydra Connect",
+      "highlight": "false",
+      "type": "Workshop"
+    },
+    {
+      "name": "Upgrading? Migrating? There’s a portmanteau for that!",
+      "description": "Panel presentation on institutions upgrading to the Fedora 4 repository architecture.",
+      "startDate": "2015-06-08",
+      "endDate": "2015-06-11",
+      "url": "http://hdl.handle.net/10315/29516",
+      "roles": ["speaker"],
+      "entity": "OpenRepositories",
+      "type": "Conference presentation"
+    },
+    {
+      "name": "Upgrading from Fedora 3 to 4",
+      "description": "What I Know So Far About Upgrading from Fedora 3 to 4",
+      "url": "http://awead.github.io/presentations/fedora-migrate",
+      "roles": ["speaker"],
+      "entity": "HydraConnect",
+      "type": "Presentation"
+    },
+    {
+      "name": "Stranger in a Strange Land: EAD in a MARC-Only World",
+      "description": "Handling EAD data with systems built to work with MARC",
+      "startDate": "2014-11-21",
+      "endDate": "2014-11-21",
+      "url": "https://awead.github.io/presentations/notsl",
+      "roles": ["speaker"],
+      "entity": "Northern Ohio Technical Services Librarians",
+      "type": "Presentation"
+    },
+    {
+      "name": "HydraCamp",
+      "description": "One-week seminar on using the Hydra framework to build digital repository applications. Included instruction on related technologies such as Ruby on Rails, Fedora and Solr.",
+      "startDate": "2013-09-01",
+      "endDate": "2013-09-07",
+      "roles": ["instructor"],
+      "entity": "Digital Curation Experts",
+      "type": "Seminar"
+    },
+    {
+      "name": "One of the Many Heads of Hydra",
+      "description": "Webinar on using Hydra at the Rock and Roll Hall of Fame",
+      "startDate": "2013-08-09",
+      "endDate": "2013-08-09",
+      "roles": ["presenter"],
+      "entity": "OhioNet",
+      "url": "http://awead.github.io/presentations/ohionet-webinar",
+      "type": "Webinar"
+    },
+    {
+      "name": "Hybrid Archival Collections Using Blacklight and Hydra",
+      "description": "Overview of how we used both Blacklight and Hydra to catalog and manage archival collections with born digital and physical holdings",
+      "startDate": "2013-02-12",
+      "endDate": "2013-02-12",
+      "roles": ["speaker"],
+      "entity": "Code4Lib",
+      "url": "http://awead.github.io/presentations/code4lib2013",
+      "type": "Presentation"
+    },
+    {
+      "name": "Creating Access to Audio and Video Digital Media: The Variations on Video Project and the Rock and Roll Hall of Fame",
+      "description": "Hot-Topics webinar sponsored by Duraspace",
+      "startDate": "2012-06-06",
+      "endDate": "2012-06-06",
+      "roles": ["presenter"],
+      "entity": "Duraspace",
+      "highlight": "false",
+      "type": "Webinar"
+    },
+    {
+      "name": "Hydrangea and Blacklight at the Rockhall",
+      "description": "Showcasing a new Blacklight application at the Rock and Roll Hall of Fame",
+      "startDate": "2011-02-08",
+      "endDate": "2011-02-08",
+      "roles": ["speaker"],
+      "entity": "Code4Lib",
+      "highlight": "false",
+      "type": "Lightning talk"
+    },
+    {
+      "name": "Database Design",
+      "description": "Semester course with a comprehensive view of the processes involved in developing formal access to information from a user-centered point of view.",
+      "startDate": "2008-01-01",
+      "endDate": "2008-05-01",
+      "roles": ["instructor"],
+      "entity": "School of Library and Information Science, Indiana University",
+      "highlight": "true",
+      "type": "Course"
+    },
+    {
+      "name": "Server Virtualization with Xen",
+      "description": "Presentation on the newly built Xen virtualization cluster at the Jacobs School of Music",
+      "startDate": "2007-10-27",
+      "endDate": "2007-10-27",
+      "roles": ["speaker"],
+      "entity": "Digital Library Program Brown Bag Lecture Series, Indiana University Libraries",
+      "highlight": "false",
+      "type": "Lecture"
+    },
+    {
+      "name": "Application Development with PHP and PostgreSQL",
+      "description": "A 3-day workshop in developing web application development using PHP scripting and the PostgreSQL database management system.",
+      "startDate": "2006-06-01",
+      "endDate": "2006-06-03",
+      "roles": ["instructor"],
+      "entity": "School of Library and Information Science, Indiana University",
+      "highlight": "false",
+      "type": "Workshop"
+    }
+  ],
+  "volunteer": [
+  ],
+  "awards": [
+  ],
+  "publications": [
+    {
+      "name": "Lute tuning and temperament in the sixteenth and seventeenth centuries",
+      "authors": "Wead, Adam",
+      "publisher": "Doctoral diss., Indiana University",
+      "releaseDate": "2014",
+      "url": "http://hdl.handle.net/2022/18424"
+    },
+    {
+      "name": "A computer-based implementation of basso continuo rules for figured bass realizations",
+      "authors": "Wead, Adam; Knopke, Ian",
+      "publisher": "Proceedings of the International Computer Music Conference",
+      "releaseDate": "2007",
+      "url": "http://hdl.handle.net/2027/spo.bbp2372.2007.150"
+    },
+    {
+      "name": "WIDIT in TREC-2004 genomics, HARD, robust, and web tracks",
+      "authors": "K. Yang, N. Yu, A. Wead, G. La Rowe, Y.-H. Li, C. Friend, Y. Lee",
+      "publisher": "Proceedings of the Thirteenth Text REtrieval Conference",
+      "releaseDate": "2004",
+      "url": "https://trec.nist.gov/pubs/trec13/t13_proceedings.html"
+    }
+  ],
+  "skills": [
+  ],
+  "interests": [
+  ],
+  "references": [
+  ],
+  "meta": {
+    "canonical": "https://raw.githubusercontent.com/jsonresume/resume-schema/master/resume.json",
+    "version": "v1.0.0",
+    "lastModified": "2017-12-24T15:53:00"
+  }
+}

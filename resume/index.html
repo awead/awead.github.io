@@ -1,0 +1,167 @@
+---
+layout: resume
+title: Resume
+main: true
+---
+{% assign resume = site.data.resume %}
+
+<div class="row">
+  <div class="col-6">
+    <h1 class="display-3">{{ resume.basics.name }}</h1>
+  </div>
+  <div class="col-6 pt-2 text-end header-text">
+    <p class="text-end">{{ resume.basics.summary }}</p>
+    <a href="mailto:{{ resume.basics.email }}">{{ resume.basics.email }}</a> &#9670;
+    <a href="{{ resume.basics.url }}">{{ resume.basics.url }}</a>
+  </div>
+</div>
+
+<div class="row border-bottom border-2 border-dark">
+  <h2 class="h3">Work</h2>
+</div>
+<div class="row mb-2"></div>
+
+{% for job in resume.work %}
+
+  <div class="row">
+    <div class="col">
+      <h3 class="h5 mb-0">{{ job.name }}</h3>
+    </div>
+    <div class="col text-end">
+      {{ job.location }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      {{ job.position }}
+    </div>
+    <div class="col text-end">
+      {{ job.startDate | date: "%B %Y" }} to
+
+      {{ job.endDate | date: "%B %Y" | default: "present" }}
+    </div>
+  </div>
+
+  <ul class="mt-1">
+    {% for point in job.highlights %}
+      <li>{{ point }}</li>
+    {% endfor %}
+  </ul>
+
+{% endfor %}
+
+<div class="row border-bottom border-2 border-dark">
+  <h2 class="h3">Selected Projects</h2>
+</div>
+<div class="row mb-2"></div>
+
+{% for project in resume.projects %}
+   
+  {% if project.type == 'repository' %}
+
+    <div class="row">
+      <div class="col-5">
+        <h3 class="h5 mb-0"><a href="{{ project.url }}" target="_blank">{{ project.name }}</a></h3>
+      </div>
+      <div class="col-7 text-end">
+        <a href="{{ project.repository }}" target="_blank">{{ project.repository }}</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        {{ project.description }}
+      </div>
+    </div>
+
+    <ul class="mt-1">
+      {% for point in project.highlights %}
+      <li>{{ point }}</li>
+      {% endfor %}
+    </ul>
+
+  {% else %}
+
+    {% continue %}
+  
+  {% endif %}
+
+{% endfor %}
+
+<div class="row border-bottom border-2 border-dark">
+  <h2 class="h3">Selected Presentations and Teaching</h2>
+</div>
+<div class="row mb-2"></div>
+
+{% for project in resume.projects %}
+
+  {% if project.type == 'repository' %}
+    {% continue %}
+  {% elsif project.highlight == 'false' %}
+    {% continue %}
+  {% else %}
+
+    <div class="row">
+      <div class="col-5">
+        {% if project.url %}
+          <a href="{{ project.url }}" target="_blank">{{ project.name }}</a>
+        {% else %}
+          {{ project.name }}
+        {% endif %}
+      </div>
+      <div class="col-7 text-end">
+        {{ project.type }}, {{ project.entity }}, {{ project.startDate | date: "%B %Y" }}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <p>{{ project.description }}</p>
+      </div>
+    </div>
+
+  {% endif %}
+
+{% endfor %}
+
+<div class="row border-bottom border-2 border-dark">
+  <h2 class="h3">Publications</h2>
+</div>
+<div class="row mb-2"></div>
+
+{% for pub in resume.publications %}
+  <div class="row">
+    <div class="col">
+      <p>
+      {{ pub.authors }} ({{ pub.releaseDate }}). <i>{{ pub.name }}</i>. ({{ pub.publisher }}). 
+      Retrieved from <a href="{{ pub.url }}">{{ pub.url }}</a>
+      </p>
+    </div>
+  </div>
+
+{% endfor %}
+
+<div class="row border-bottom border-2 border-dark">
+  <h2 class="h3">Education</h2>
+</div>
+
+{% for school in resume.education %}
+
+  <div class="row mt-2">
+    <div class="col">
+      <h3 class="h5 mb-0">{{ school.institution }}</h3>
+    </div>
+    <div class="col text-end">
+      {{ school.startDate | date: "%Y" }} to {{ school.endDate | date: "%Y" }}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      {{ school.studyType }} <i>{{ school.honors }}</i>
+    </div>
+  </div>
+
+{% endfor %}
+
