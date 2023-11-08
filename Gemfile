@@ -4,6 +4,7 @@ source "https://rubygems.org"
 gem "minima", "~> 2.0"
 
 gem "rouge"
+gem "webrick"
 
 # Plugins
 group :jekyll_plugins do
