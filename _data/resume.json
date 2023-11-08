@@ -6,7 +6,7 @@
     "image": "",
     "email": "amsterdamos@gmail.com",
     "url": "http://awead.github.io/",
-    "summary": "Librarian and software developer with over 20 year's experience in libraries, archives, and museums",
+    "summary": "Software engineer with over 20 years of experience in a wide variey of fields including academia, museums, and healthcare.",
     "location": {
       "countryCode": "US",
       "region": "Ohio"
@@ -36,11 +36,27 @@
   },
   "work": [
     {
+      "name": "CoverMyMeds",
+      "location": "Columbus, OH",
+      "position": "Senior Software Developer/Engineer",
+      "website": "https://www.covermymeds.com/main/",
+      "startDate": "2022-01-11",
+      "highlights": [
+        "work to support and evolve our suite of real-time prescription benefit products",
+        "lead recent initiative to remove opioids from prescription alternatives",
+        "serve as technical support contact for product and account managers",
+        "research and implement new engineering initiatives",
+        "mentor associate and mid-level devs",
+        "maintain highest possible level of security compliance as the team's 'security champion'",
+      ]
+    },
+    {
       "name": "Penn State University",
       "location": "State College, PA",
       "position": "Systems Analyst",
       "website": "",
       "startDate": "2014-04-01",
+      "endDate": "2022-01-07",
       "highlights": [
         "redesigned Penn State's Scholarsphere repository application using S3, Kubernetes, and modern Rails components",
         "focused on microservice-oriented architectures that are API-centered with industry-standard technologies", 
