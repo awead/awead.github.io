@@ -1,15 +1,13 @@
 source "https://rubygems.org"
 
-# Theme
+gem "jekyll", "~> 4.4.1"
 gem "minima", "~> 2.0"
-
 gem "rouge"
 gem "webrick"
 
 # Plugins
 group :jekyll_plugins do
-  gem "github-pages"
   gem "jekyll-compose"
-  gem "jekyll-feed", "~> 0.6"
+  gem "jekyll-feed"
   gem "jekyll-sitemap"
 end
