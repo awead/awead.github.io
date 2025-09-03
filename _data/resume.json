@@ -6,7 +6,7 @@
     "image": "",
     "email": "amsterdamos@gmail.com",
     "url": "http://awead.github.io/",
-    "summary": "Software engineer with over 20 years of experience in a wide variey of fields including academia, museums, and healthcare.",
+    "summary": "Software engineer with over 20 years of experience in a wide variety of fields including academia, museums, and healthcare.",
     "location": {
       "countryCode": "US",
       "region": "Ohio"
@@ -36,18 +36,20 @@
   },
   "work": [
     {
-      "name": "CoverMyMeds",
+      "name": "McKesson - CoverMyMeds",
       "location": "Columbus, OH",
       "position": "Senior Software Developer/Engineer",
-      "website": "https://www.covermymeds.com/main/",
+      "website": "https://www.covermymeds.health/",
       "startDate": "2022-01-11",
       "highlights": [
-        "work to support and evolve our suite of real-time prescription benefit products",
-        "lead recent initiative to remove opioids from prescription alternatives",
-        "serve as technical support contact for product and account managers",
-        "research and implement new engineering initiatives",
-        "mentor associate and mid-level devs",
-        "maintain highest possible level of security compliance as the team's 'security champion'",
+        *team lead, implementing new solutions for medical prior authorizations utilizing Azure cloud architecture
+        *research and implement new engineering initiatives, including a company-wide evaluation of new AI tools such as Windsurf and Claude Code
+        *collaborated with multiple engineers and product managers across the company to develop an agentic AI solution for processing prior authorizations
+        *engaged in the ongoing support of real-time prescription benefit products to meet NCPDP standards
+        *lead recent initiative to remove opioids from prescription alternatives
+        *serve as technical support contact for product and account managers
+        *mentor associate and mid-level devs
+        *helps to maintain SOC2 and SOX security compliance as the team's 'security champion'
       ]
     },
     {
@@ -59,7 +61,7 @@
       "endDate": "2022-01-07",
       "highlights": [
         "redesigned Penn State's Scholarsphere repository application using S3, Kubernetes, and modern Rails components",
-        "focused on microservice-oriented architectures that are API-centered with industry-standard technologies", 
+        "focused on microservice-oriented architectures that are API-centered with industry-standard technologies",
         "technical lead for <a href=\"https://github.com/psu-libraries/cho\" target=\"_blank\">CHO</a>, a customized ContentDM replacement using Rails with Valkyrie & Fedora",
         "migrated repository content from Fedora, version 3, to version 4, and later to Postgres"
       ]
@@ -143,6 +145,7 @@
       "startDate": "2003-10-01",
       "endDate": "2004-12-31",
       "__summary": "Provided technical reporting support for the staff at Financial Management Services",
+      "display": "false",
       "highlights":
       [
         "financial reports using SQL and SQR for Peoplesoft, and other financial applications written in PHP, and Perl with Sybase"
@@ -156,6 +159,7 @@
       "startDate": "2001-10-01",
       "endDate": "2003-10-31",
       "__summary": "Served as assistant to both the Head and Acquisitions Librarian at the Cook Music Library.",
+      "display": "false",
       "highlights":
       [
         "received orders of new materials to the library and provided copy-level cataloging (approximately 100 items per week)",
@@ -170,6 +174,7 @@
       "startDate": "2000-11-01",
       "endDate": "2001-10-31",
       "__summary": "Evening supervisor at the Cook Music Library.",
+      "display": "false",
       "highlights":
       [
         "evening circulation supervisor with a staff of 5 student workers",
@@ -216,6 +221,39 @@
   ],
   "projects": [
     {
+      "name": "RDF and FHIR: Why it's important",
+      "description": "A short primer on RDF and how it can be used to make inferences within a corpus of fhir data",
+      "highlights": [],
+      "keywords": [],
+      "startDate": "2025-8-25",
+      "endDate": "2025-8-25",
+      "roles": ["presenter"],
+      "entity": "CoverMyTech Virtual Conference",
+      "type": "conference presentation"
+    },
+    {
+      "name": "Alternative Keyboard Layouts, and why you may or may not want to use them",
+      "description": "A brief history of the modern keyboard layout, and how alternative layouts can be more ergonomic, reducing stress on the hands",
+      "highlights": [],
+      "keywords": [],
+      "startDate": "2023-6-15",
+      "endDate": "2023-6-15",
+      "roles": ["presenter"],
+      "entity": "CMM Merge Request Virtual Tech Conference",
+      "type": "conference presentation"
+    },
+    {
+      "name": "FHIR Station",
+      "description": "Proposal for CMM innovation days to create a central fhir repository for all patient data",
+      "highlights": [],
+      "keywords": [],
+      "startDate": "2022-12-7",
+      "endDate": "2022-12-7",
+      "roles": ["speaker"],
+      "entity": "CoverMyMeds Innovation Days",
+      "type": "presentation"
+    },
+    {
       "name": "Scholarsphere",
       "description": "Penn State's institutional repository supporting Open Access initiatives",
       "highlights": [
@@ -225,6 +263,7 @@
       ],
       "url": "https://scholarsphere.psu.edu/",
       "repository": "https://github.com/psu-libraries/scholarsphere",
+      "highlight": "false",
       "type": "repository"
     },
     {
@@ -237,6 +276,7 @@
       ],
       "url": "http://catalog.rockhall.com/",
       "repository": "https://github.com/awead/catalog",
+      "highlight": "false",
       "type": "repository"
     },
     {
@@ -249,6 +289,7 @@
       ],
       "url": "https://catalog.libraries.psu.edu/",
       "repository": "https://github.com/psu-libraries/psulib_blacklight",
+      "highlight": "false",
       "type": "repository"
     },
     {
@@ -296,6 +337,7 @@
       "url": "http://awead.github.io/presentations/fedora-tests",
       "roles": ["presenter"],
       "entity": "Samvera Connect",
+      "highlight": "false",
       "type": "Presentation"
     },
     {
@@ -317,6 +359,7 @@
       "endDate": "2017-05-11",
       "roles": ["instructor"],
       "entity": "Data Curation Experts",
+      "highlight": "false",
       "type": "Workshop"
     },
     {
@@ -369,6 +412,7 @@
       "url": "http://hdl.handle.net/10315/29516",
       "roles": ["speaker"],
       "entity": "OpenRepositories",
+      "highlight": "false",
       "type": "Conference presentation"
     },
     {
@@ -377,6 +421,7 @@
       "url": "http://awead.github.io/presentations/fedora-migrate",
       "roles": ["speaker"],
       "entity": "HydraConnect",
+      "highlight": "false",
       "type": "Presentation"
     },
     {
@@ -387,6 +432,7 @@
       "url": "https://awead.github.io/presentations/notsl",
       "roles": ["speaker"],
       "entity": "Northern Ohio Technical Services Librarians",
+      "highlight": "false",
       "type": "Presentation"
     },
     {
@@ -396,6 +442,7 @@
       "endDate": "2013-09-07",
       "roles": ["instructor"],
       "entity": "Digital Curation Experts",
+      "highlight": "false",
       "type": "Seminar"
     },
     {
@@ -406,6 +453,7 @@
       "roles": ["presenter"],
       "entity": "OhioNet",
       "url": "http://awead.github.io/presentations/ohionet-webinar",
+      "highlight": "false",
       "type": "Webinar"
     },
     {
@@ -416,6 +464,7 @@
       "roles": ["speaker"],
       "entity": "Code4Lib",
       "url": "http://awead.github.io/presentations/code4lib2013",
+      "highlight": "false",
       "type": "Presentation"
     },
     {
@@ -445,7 +494,7 @@
       "endDate": "2008-05-01",
       "roles": ["instructor"],
       "entity": "School of Library and Information Science, Indiana University",
-      "highlight": "true",
+      "highlight": "false",
       "type": "Course"
     },
     {
